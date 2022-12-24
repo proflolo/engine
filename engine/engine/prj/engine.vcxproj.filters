@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{4cb6b751-03b8-42d4-afb1-f2daa7bbcaf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{8933d1ad-15e1-4b9b-b8f4-4ec212b6b187}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\engine">
+      <UniqueIdentifier>{becb0dae-d754-4496-bdc5-8fcd05fb1382}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\engine\definition">
+      <UniqueIdentifier>{beb1aef2-61b4-488c-a744-b8f054d43b8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\engine\core">
+      <UniqueIdentifier>{fcbc1f98-5f8a-41d6-9c97-d633dafbd8b8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\StdAfx.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Module.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GameModule.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\StdAfx.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\engine\Module.h">
+      <Filter>include\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\engine\GameModule.h">
+      <Filter>include\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\engine\EngineStdAfx.h">
+      <Filter>include\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\engine\definition\Field.h">
+      <Filter>include\engine\definition</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\engine\core\string_literal.h">
+      <Filter>include\engine\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\engine\definition\Definition.h">
+      <Filter>include\engine\definition</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\engine\definition\Definitionbase.h">
+      <Filter>include\engine\definition</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

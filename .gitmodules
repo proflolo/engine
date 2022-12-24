@@ -1,0 +1,3 @@
+[submodule "engine/external/juce"]
+	path = engine/external/juce
+	url = https://github.com/juce-framework/JUCE.git
