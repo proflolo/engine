@@ -102,7 +102,6 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>game.lib;editor.lib;render2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Editor|x64'">
@@ -118,7 +117,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>game.lib;editor.lib;render2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>editor.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -153,6 +152,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>editor.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -161,13 +161,15 @@
     <ClCompile Include="..\src\StdAfx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-Editor|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-Editor|x64'">Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\engine\core\string_literal.h" />
-    <ClInclude Include="..\include\engine\definition\Definition.h" />
-    <ClInclude Include="..\include\engine\definition\Definitionbase.h" />
-    <ClInclude Include="..\include\engine\definition\Field.h" />
+    <ClInclude Include="..\include\engine\definition\Definition.hpp" />
+    <ClInclude Include="..\include\engine\definition\Definitionbase.hpp" />
+    <ClInclude Include="..\include\engine\definition\Field.hpp" />
     <ClInclude Include="..\include\engine\EngineStdAfx.h" />
     <ClInclude Include="..\include\engine\GameModule.h" />
     <ClInclude Include="..\include\engine\Module.h" />

@@ -5,17 +5,23 @@ namespace engine
 {
 	int GameModule::Run()
 	{
-		std::vector<std::unique_ptr<Module>> modules = InitRequiredModules();
+		std::vector<std::unique_ptr<Module>> m_subModules = InitRequiredModules();
 		return 0;
+	}
+
+	const std::vector<std::unique_ptr<Module>>& GameModule::GetSubModules() const
+	{
+		return m_subModules;
 	}
 }
 
-extern std::unique_ptr<engine::GameModule> CreateGame();
+
+
 
 #if !WITH_EDITOR
 int main(int argc, char** argv)
 {
-	std::unique_ptr<engine::GameModule> game = CreateGame();
+	std::unique_ptr<engine::GameModule> game = engine::CreateGame();
 	return game->Run();
 }
 #endif

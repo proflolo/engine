@@ -3,6 +3,8 @@
 #include "StdAfx.h"
 #include "juce_gui_basics/juce_gui_basics.h"
 #include "juce_events/juce_events.h"
+#include "engine/GameModule.h"
+#include "engine/definition/Definitionbase.hpp"
 
 
 class MainComponent : public juce::Component
@@ -71,9 +73,25 @@ private:
             setContentOwned(new MainComponent(), false);
             setVisible(true);
 
+            std::unique_ptr<engine::GameModule> gameModule = engine::CreateGame();
+            ProcessDefinitions(gameModule->GetDefinitions());
+            //for (const std::unique_ptr<engine::Module> subModules : gameModule->())
+            //{
+            //
+            //}
+
 #if JUCE_MAC || JUCE_WINDOWS || JUCE_LINUX || JUCE_BSD
             //taskbarIcon.reset(new DemoTaskbarComponent());
 #endif
+        }
+
+        void ProcessDefinitions(const engine::definitions& i_defs)
+        {
+            ;
+            for (const editor::definition_def& def : i_defs.get_definition().list_defs())
+            {
+                std::string name = def.GetName();
+            }
         }
 
         void closeButtonPressed() override { JUCEApplication::getInstance()->systemRequestedQuit(); }

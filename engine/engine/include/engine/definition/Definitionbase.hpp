@@ -1,6 +1,6 @@
 #pragma once
 #if WITH_EDITOR
-#include "editor/definition/DefinitionbaseDef.h"
+#include "editor/definition/DefinitionbaseDef.hpp"
 #endif
 
 namespace engine
@@ -9,7 +9,7 @@ namespace engine
 	{
 	public:
 #if WITH_EDITOR
-		virtual const editor::definitionbase_def& get_definition() = 0;
+		virtual const editor::definitionbase_def& get_definition() const = 0;
 #endif
 	};
 
@@ -20,7 +20,7 @@ namespace engine
 #if WITH_EDITOR
 		static editor::definitionbase_def_impl<Db> s_def;
 
-		const editor::definitionbase_def& get_definition() override
+		const editor::definitionbase_def& get_definition() const override
 		{
 			return s_def;
 		}

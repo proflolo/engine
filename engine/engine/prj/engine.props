@@ -13,10 +13,11 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeaderFile>StdAfx.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>D:\Lolo\engine\editor\include;D:\Lolo\engine\engine\include;D:\Lolo\engine\engine\include\engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EngineDir)\editor\include;$(EngineDir)\engine\include;$(EngineDir)\engine\include\engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)\bin\$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>game.lib;render2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup />

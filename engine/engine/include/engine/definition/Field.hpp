@@ -1,6 +1,6 @@
 #pragma once
 #if WITH_EDITOR
-#include "editor/definition/FieldDef.h"
+#include "editor/definition/FieldDef.hpp"
 #endif
 
 namespace engine

@@ -1,6 +1,6 @@
 #pragma once
-#include "Properties.h"
-#include "PropertyElement.h"
+#include "Properties.hpp"
+#include "PropertyElement.hpp"
 
 namespace editor
 {
@@ -32,7 +32,7 @@ namespace editor
 
 		std::string GetUiName() const override
 		{
-			return props:: template get_property<ui_name>().value;
+			return props:: template get_property<editor::ui_name>().value;
 		}
 
 		//Type GetType() const override

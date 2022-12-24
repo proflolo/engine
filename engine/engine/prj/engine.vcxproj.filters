@@ -41,16 +41,16 @@
     <ClInclude Include="..\include\engine\EngineStdAfx.h">
       <Filter>include\engine</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\engine\definition\Field.h">
+    <ClInclude Include="..\include\engine\definition\Field.hpp">
       <Filter>include\engine\definition</Filter>
     </ClInclude>
     <ClInclude Include="..\include\engine\core\string_literal.h">
       <Filter>include\engine\core</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\engine\definition\Definition.h">
+    <ClInclude Include="..\include\engine\definition\Definition.hpp">
       <Filter>include\engine\definition</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\engine\definition\Definitionbase.h">
+    <ClInclude Include="..\include\engine\definition\Definitionbase.hpp">
       <Filter>include\engine\definition</Filter>
     </ClInclude>
   </ItemGroup>

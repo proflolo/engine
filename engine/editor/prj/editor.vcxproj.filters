@@ -47,19 +47,19 @@
     <ClInclude Include="..\include\EditorStdAfx.h">
       <Filter>include\editor</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\editor\definition\FieldDef.h">
+    <ClInclude Include="..\include\editor\definition\FieldDef.hpp">
       <Filter>include\editor\definition</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\editor\definition\PropertyElement.h">
+    <ClInclude Include="..\include\editor\definition\PropertyElement.hpp">
       <Filter>include\editor\definition</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\editor\definition\Properties.h">
+    <ClInclude Include="..\include\editor\definition\Properties.hpp">
       <Filter>include\editor\definition</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\editor\definition\DefinitionDef.h">
+    <ClInclude Include="..\include\editor\definition\DefinitionDef.hpp">
       <Filter>include\editor\definition</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\editor\definition\DefinitionbaseDef.h">
+    <ClInclude Include="..\include\editor\definition\DefinitionbaseDef.hpp">
       <Filter>include\editor\definition</Filter>
     </ClInclude>
   </ItemGroup>

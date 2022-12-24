@@ -1,10 +1,6 @@
 #include "StdAfx.h"
 #include "Game.h"
-#include "render2d/Render2DModule.h"
-#include "engine/definition/Field.h"
-#include "engine/definition/Definition.h"
-#include "engine/definition/Definitionbase.h"
-#include "editor/definition/Properties.h"
+
 
 class Character: public engine::definition<Character, "Char", editor::ui_name("C")>
 {
@@ -50,8 +46,11 @@ std::vector<std::unique_ptr<engine::Module>>Game::InitRequiredModules() const
 	return modules;
 }
 
-std::unique_ptr<engine::GameModule> CreateGame()
+namespace engine
 {
-	return std::make_unique<Game>();
+	std::unique_ptr<engine::GameModule> CreateGame()
+	{
+		return std::make_unique<Game>();
+	}
 }
 

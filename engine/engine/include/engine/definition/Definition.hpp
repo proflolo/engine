@@ -1,6 +1,6 @@
 #pragma once
 #if WITH_EDITOR
-#include "editor/definition/DefinitionDef.h"
+#include "editor/definition/DefinitionDef.hpp"
 #endif
 
 namespace engine
