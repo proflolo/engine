@@ -100,7 +100,6 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -148,7 +147,6 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -157,6 +155,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\GameModule.cpp" />
+    <ClCompile Include="..\src\Main.cpp" />
     <ClCompile Include="..\src\Module.cpp" />
     <ClCompile Include="..\src\StdAfx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -164,6 +163,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-Editor|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\src\window\WindowWindows.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\engine\core\string_literal.h" />
@@ -173,6 +173,8 @@
     <ClInclude Include="..\include\engine\EngineStdAfx.h" />
     <ClInclude Include="..\include\engine\GameModule.h" />
     <ClInclude Include="..\include\engine\Module.h" />
+    <ClInclude Include="..\include\engine\window\Window.h" />
+    <ClInclude Include="..\include\engine\window\WindowWindows.h" />
     <ClInclude Include="..\src\StdAfx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

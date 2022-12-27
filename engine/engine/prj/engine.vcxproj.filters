@@ -16,6 +16,12 @@
     <Filter Include="include\engine\core">
       <UniqueIdentifier>{fcbc1f98-5f8a-41d6-9c97-d633dafbd8b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\window">
+      <UniqueIdentifier>{589c15b3-7f9a-4a6b-bfa3-044dc4b340b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\engine\window">
+      <UniqueIdentifier>{c2df96fd-2f74-40fe-9a4a-131f1391779f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\StdAfx.cpp">
@@ -25,6 +31,12 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\GameModule.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\window\WindowWindows.cpp">
+      <Filter>src\window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Main.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -52,6 +64,12 @@
     </ClInclude>
     <ClInclude Include="..\include\engine\definition\Definitionbase.hpp">
       <Filter>include\engine\definition</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\engine\window\Window.h">
+      <Filter>include\engine\window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\engine\window\WindowWindows.h">
+      <Filter>include\engine\window</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

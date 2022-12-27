@@ -11,6 +11,9 @@
     <ClCompile>
       <PreprocessorDefinitions>WITH_EDITOR=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <BuildMacro Include="EngineDir">
