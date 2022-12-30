@@ -22,6 +22,15 @@
     <Filter Include="include\engine\window">
       <UniqueIdentifier>{c2df96fd-2f74-40fe-9a4a-131f1391779f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\platform">
+      <UniqueIdentifier>{8cfdd041-5cf5-423e-8086-c3272c4c26d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\platform\opengl">
+      <UniqueIdentifier>{d5212d72-d574-4a87-b013-cbd9bdd50565}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\platform\opengl\KHR">
+      <UniqueIdentifier>{0454909d-6bc5-4a72-964e-edf479fa9d57}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\StdAfx.cpp">
@@ -38,6 +47,9 @@
     </ClCompile>
     <ClCompile Include="..\src\Main.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\window\WindowWindowsOpenGL.cpp">
+      <Filter>src\window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +82,24 @@
     </ClInclude>
     <ClInclude Include="..\include\engine\window\WindowWindows.h">
       <Filter>include\engine\window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\engine\window\WindowWindowsOpenGL.h">
+      <Filter>include\engine\window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\platform\opengl\glxext.h">
+      <Filter>src\platform\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\platform\opengl\wglext.h">
+      <Filter>src\platform\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\platform\opengl\glext.h">
+      <Filter>src\platform\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\platform\opengl\glcorearb.h">
+      <Filter>src\platform\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\platform\opengl\KHR\khrplatform.h">
+      <Filter>src\platform\opengl\KHR</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

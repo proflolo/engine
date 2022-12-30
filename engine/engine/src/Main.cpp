@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 #include <Windows.h>
-#include "window/WindowWindows.h"
+#include "window/WindowWindowsOpenGL.h"
 #if !WITH_EDITOR
 //int main(int argc, char** argv)
 //{
@@ -11,7 +11,7 @@
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pCmdLine, int nCmdShow)
 {
 	//1. Create Window
-	engine::WindowWindows window(hInstance, nCmdShow);
+	engine::WindowWindowsOpenGL window(hInstance, nCmdShow);
 	return window.Run();
 }
 #endif

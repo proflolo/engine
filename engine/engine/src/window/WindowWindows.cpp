@@ -54,7 +54,8 @@ namespace engine
 		m_hWnd = CreateWindow(
 			m_windowClassName.c_str(),
 			L"Cube11",
-			WS_OVERLAPPEDWINDOW,
+			//WS_OVERLAPPEDWINDOW,
+			WS_CAPTION | WS_SYSMENU | WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
 			x, y,
 			nDefaultWidth, nDefaultHeight,
 			0,
@@ -76,6 +77,7 @@ namespace engine
 	WindowWindows::~WindowWindows()
 	{
 		UnregisterClass(m_windowClassName.c_str(), m_hInstance);
+		DestroyWindow(m_hWnd);
 	}
 
 	int WindowWindows::Run()

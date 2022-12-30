@@ -13,11 +13,11 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeaderFile>StdAfx.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(EngineDir)\editor\include;$(EngineDir)\engine\include;$(EngineDir)\engine\include\engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EngineDir)\editor\include;$(EngineDir)\engine\src;$(EngineDir)\engine\include;$(EngineDir)\engine\include\engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>$(SolutionDir)\bin\$(Configuration)\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>game.lib;render2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>game.lib;render2d.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup />

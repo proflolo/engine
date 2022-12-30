@@ -11,9 +11,11 @@ namespace engine
 		int Run();
 	private:
 		static LRESULT CALLBACK StaticWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-		HINSTANCE m_hInstance;
-		HWND m_hWnd;
 		LPRECT m_rc;
 		std::wstring m_windowClassName;
+
+	protected:
+		HINSTANCE m_hInstance;
+		HWND m_hWnd;
 	};
 }

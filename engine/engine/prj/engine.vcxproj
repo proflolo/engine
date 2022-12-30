@@ -164,6 +164,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-Editor|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\src\window\WindowWindows.cpp" />
+    <ClCompile Include="..\src\window\WindowWindowsOpenGL.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\engine\core\string_literal.h" />
@@ -174,7 +175,13 @@
     <ClInclude Include="..\include\engine\GameModule.h" />
     <ClInclude Include="..\include\engine\Module.h" />
     <ClInclude Include="..\include\engine\window\Window.h" />
+    <ClInclude Include="..\include\engine\window\WindowWindowsOpenGL.h" />
     <ClInclude Include="..\include\engine\window\WindowWindows.h" />
+    <ClInclude Include="..\src\platform\opengl\glcorearb.h" />
+    <ClInclude Include="..\src\platform\opengl\glext.h" />
+    <ClInclude Include="..\src\platform\opengl\glxext.h" />
+    <ClInclude Include="..\src\platform\opengl\KHR\khrplatform.h" />
+    <ClInclude Include="..\src\platform\opengl\wglext.h" />
     <ClInclude Include="..\src\StdAfx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
