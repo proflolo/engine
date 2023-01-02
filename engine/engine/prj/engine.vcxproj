@@ -157,6 +157,9 @@
     <ClCompile Include="..\src\GameModule.cpp" />
     <ClCompile Include="..\src\Main.cpp" />
     <ClCompile Include="..\src\Module.cpp" />
+    <ClCompile Include="..\src\render\opengl\RendererOpenGL.cpp" />
+    <ClCompile Include="..\src\render\RenderClient.cpp" />
+    <ClCompile Include="..\src\render\Renderer.cpp" />
     <ClCompile Include="..\src\StdAfx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-Editor|x64'">Create</PrecompiledHeader>
@@ -174,15 +177,19 @@
     <ClInclude Include="..\include\engine\EngineStdAfx.h" />
     <ClInclude Include="..\include\engine\GameModule.h" />
     <ClInclude Include="..\include\engine\Module.h" />
+    <ClInclude Include="..\include\engine\render\RenderClient.h" />
+    <ClInclude Include="..\include\engine\render\Renderer.h" />
     <ClInclude Include="..\include\engine\window\Window.h" />
-    <ClInclude Include="..\include\engine\window\WindowWindowsOpenGL.h" />
-    <ClInclude Include="..\include\engine\window\WindowWindows.h" />
+    <ClInclude Include="..\src\EngineDefs.h" />
     <ClInclude Include="..\src\platform\opengl\glcorearb.h" />
     <ClInclude Include="..\src\platform\opengl\glext.h" />
     <ClInclude Include="..\src\platform\opengl\glxext.h" />
     <ClInclude Include="..\src\platform\opengl\KHR\khrplatform.h" />
     <ClInclude Include="..\src\platform\opengl\wglext.h" />
+    <ClInclude Include="..\src\render\opengl\RendererOpenGL.h" />
     <ClInclude Include="..\src\StdAfx.h" />
+    <ClInclude Include="..\src\window\WindowWindows.h" />
+    <ClInclude Include="..\src\window\WindowWindowsOpenGL.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

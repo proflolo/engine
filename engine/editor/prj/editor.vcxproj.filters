@@ -22,6 +22,9 @@
     <ClCompile Include="..\src\editor.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\external\juce\modules\juce_opengl\juce_opengl.cpp">
+      <Filter>src\juce</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">

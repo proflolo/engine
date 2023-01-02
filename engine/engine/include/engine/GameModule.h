@@ -3,6 +3,7 @@
 
 namespace engine
 {
+	class RenderClient;
 	class GameModule : public Module
 	{
 	public:
@@ -10,6 +11,7 @@ namespace engine
 
 		void Init();
 		const std::vector<std::unique_ptr<Module>>& GetSubModules() const;
+		virtual RenderClient& GetRenderClient() = 0;
 	protected:
 		virtual std::vector<std::unique_ptr<Module>> InitRequiredModules() const = 0;
 

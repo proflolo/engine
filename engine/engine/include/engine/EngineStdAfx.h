@@ -3,7 +3,7 @@
 #include <vector>
 #include <memory>
 #include <string>
-
+#include <stop_token>
 
 //engine itself
 #include "engine/core/string_literal.h"

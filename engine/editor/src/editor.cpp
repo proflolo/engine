@@ -1,15 +1,66 @@
 // editor.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
 //
 #include "StdAfx.h"
-#include "juce_gui_basics/juce_gui_basics.h"
-#include "juce_events/juce_events.h"
+
 #include "engine/GameModule.h"
 #include "engine/definition/Definitionbase.hpp"
+#include "render/opengl/RendererOpenGL.h"
 
+
+class EngineView : public juce::OpenGLAppComponent
+{
+public:
+    EngineView()
+    {
+        setSize(800, 600);
+    }
+    ~EngineView()
+    {
+        shutdownOpenGL();
+    }
+    void initialise() override
+    {
+
+    }
+
+    void shutdown() override
+    {
+        bool stopped = m_stopSource.stop_requested();
+    }
+
+    void render() override
+    {
+        m_renderer.render(m_stopSource.get_token());
+        glEnable(GL_BLEND);
+    }
+
+    void paint(juce::Graphics& g) override
+    {
+    
+    }
+
+private:
+    engine::RendererOpenGL m_renderer;
+    std::stop_source m_stopSource;
+};
 
 class MainComponent : public juce::Component
 {
+public:
+    MainComponent()
+    {
+        setSize(800, 600);
+        addAndMakeVisible(m_view);
+        m_view.setBounds(50, 100, 200, 200);
+    }
+    ~MainComponent()
+    {
+       
+    }
+   
 
+private:
+    EngineView m_view;
 };
 
 class Editor : public juce::JUCEApplication
