@@ -1,5 +1,5 @@
 #include "StdAfx.h"
-#include <Windows.h>
+#if PLATFORM_WINDOWS && !WITH_EDITOR
 #include "window/WindowWindows.h"
 
 namespace engine
@@ -138,3 +138,4 @@ namespace engine
 		return DefWindowProc(hWnd, uMsg, wParam, lParam);
 	}
 }
+#endif

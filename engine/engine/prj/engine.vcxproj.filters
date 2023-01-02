@@ -31,6 +31,15 @@
     <Filter Include="src\platform\opengl\KHR">
       <UniqueIdentifier>{0454909d-6bc5-4a72-964e-edf479fa9d57}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\engine\render">
+      <UniqueIdentifier>{aca50172-4332-4f4e-b3f5-9bd0bc8c4bb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\render">
+      <UniqueIdentifier>{d22ccc3b-d219-4799-8838-adca54c8f2ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\render\opengl">
+      <UniqueIdentifier>{22732362-8ce9-4c45-9a2e-db1a59c20228}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\StdAfx.cpp">
@@ -50,6 +59,15 @@
     </ClCompile>
     <ClCompile Include="..\src\window\WindowWindowsOpenGL.cpp">
       <Filter>src\window</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\render\Renderer.cpp">
+      <Filter>src\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\render\opengl\RendererOpenGL.cpp">
+      <Filter>src\render\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\render\RenderClient.cpp">
+      <Filter>src\render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -80,12 +98,6 @@
     <ClInclude Include="..\include\engine\window\Window.h">
       <Filter>include\engine\window</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\engine\window\WindowWindows.h">
-      <Filter>include\engine\window</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\engine\window\WindowWindowsOpenGL.h">
-      <Filter>include\engine\window</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\platform\opengl\glxext.h">
       <Filter>src\platform\opengl</Filter>
     </ClInclude>
@@ -100,6 +112,24 @@
     </ClInclude>
     <ClInclude Include="..\src\platform\opengl\KHR\khrplatform.h">
       <Filter>src\platform\opengl\KHR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\window\WindowWindows.h">
+      <Filter>src\window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\window\WindowWindowsOpenGL.h">
+      <Filter>src\window</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\render\opengl\RendererOpenGL.h">
+      <Filter>src\render\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\engine\render\Renderer.h">
+      <Filter>include\engine\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EngineDefs.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\engine\render\RenderClient.h">
+      <Filter>include\engine\render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

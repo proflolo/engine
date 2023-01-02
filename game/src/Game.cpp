@@ -46,6 +46,16 @@ std::vector<std::unique_ptr<engine::Module>>Game::InitRequiredModules() const
 	return modules;
 }
 
+engine::RenderClient& Game::GetRenderClient()
+{
+	return *this;
+}
+
+void Game::Render(std::stop_token i_stopToken, engine::Renderer& i_renderer)
+{
+
+}
+
 namespace engine
 {
 	std::unique_ptr<engine::GameModule> CreateGame()
