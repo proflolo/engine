@@ -1,7 +1,9 @@
 #include "StdAfx.h"
 #include "RendererOpenGL.h"
 #include "render/Mesh.h"
+#include "render/Material.h"
 #include "GPUResourceMeshOpenGL.h"
+#include "GPUResourceMaterialOpenGL.h"
 namespace engine
 {
 	class GPUResourceHolder: public GPUResource
@@ -18,7 +20,8 @@ namespace engine
 		{
 			if (renderer)
 			{
-				renderer->FlagResourceForDeletion(Extract());
+				renderer->FlagResourceForDeletion(std::move(realResource));
+				renderer = nullptr;
 			}
 		}
 
@@ -34,6 +37,8 @@ namespace engine
 
 	RendererOpenGL::RendererOpenGL()
 	{
+		//glEnable(GL_DEBUG_OUTPUT);
+		//glDebugMessageCallback(MessageCallback, 0);
 	}
 
 	RendererOpenGL::~RendererOpenGL()
@@ -55,14 +60,14 @@ namespace engine
 
 	void RendererOpenGL::EndRender(std::stop_token i_stopToken)
 	{
+		decltype(m_toDeleteResources) toDelete;
 		{
 			std::scoped_lock lock(m_deleteMutex);
-			decltype(m_toDeleteResources) toDelete;
 			std::swap(toDelete, m_toDeleteResources);
 		}
 	}
 
-	void RendererOpenGL::Render(Mesh& i_mesh)
+	void RendererOpenGL::Render(Mesh& i_mesh, Material& i_material)
 	{
 		if (!i_mesh.HasGPUResource())
 		{
@@ -71,6 +76,15 @@ namespace engine
 			std::shared_ptr<GPUResourceHolder> handle = std::make_shared<GPUResourceHolder>(*this, std::move(gpuResource));
 			m_activeResources.emplace_back(handle);
 			i_mesh.AssignGPUResource(std::move(handle));
+		}
+
+		if (!i_material.HasGPUResource())
+		{
+			//Create it!
+			std::unique_ptr<GPUResourceMaterialOpenGL> gpuResource = std::make_unique<GPUResourceMaterialOpenGL>();
+			std::shared_ptr<GPUResourceHolder> handle = std::make_shared<GPUResourceHolder>(*this, std::move(gpuResource));
+			m_activeResources.emplace_back(handle);
+			i_material.AssignGPUResource(std::move(handle));
 		}
 	}
 

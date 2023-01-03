@@ -13,14 +13,6 @@ namespace engine
 
 	}
 
-	bool Mesh::HasGPUResource() const
-	{
-		return m_resource != nullptr;
-	}
-
-	void Mesh::AssignGPUResource(std::shared_ptr<GPUResource> i_resource)
-	{
-		m_resource = std::move(i_resource);
-	}
+	
 
 }

@@ -3,10 +3,10 @@
 
 namespace engine
 {
-	class Mesh: public Resource
+	class Material: public Resource
 	{
 	public:
-		Mesh();
-		~Mesh();
+		Material();
+		~Material();
 	};
 }

@@ -15,7 +15,7 @@ namespace engine
 		void BeginRender(std::stop_token i_stopToken);
 		void EndRender(std::stop_token i_stopToken);
 
-		void Render(Mesh& i_mesh) override;
+		void Render(Mesh& i_mesh, Material& i_material) override;
 
 		void FlagResourceForDeletion(std::unique_ptr<GPUResourceOpenGL>i_resource);
 
