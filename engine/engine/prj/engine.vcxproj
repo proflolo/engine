@@ -154,6 +154,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\external\glew-simple\glew.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\src\GameModule.cpp" />
     <ClCompile Include="..\src\Main.cpp" />
     <ClCompile Include="..\src\Module.cpp" />
@@ -181,11 +184,6 @@
     <ClInclude Include="..\include\engine\render\Renderer.h" />
     <ClInclude Include="..\include\engine\window\Window.h" />
     <ClInclude Include="..\src\EngineDefs.h" />
-    <ClInclude Include="..\src\platform\opengl\glcorearb.h" />
-    <ClInclude Include="..\src\platform\opengl\glext.h" />
-    <ClInclude Include="..\src\platform\opengl\glxext.h" />
-    <ClInclude Include="..\src\platform\opengl\KHR\khrplatform.h" />
-    <ClInclude Include="..\src\platform\opengl\wglext.h" />
     <ClInclude Include="..\src\render\opengl\RendererOpenGL.h" />
     <ClInclude Include="..\src\StdAfx.h" />
     <ClInclude Include="..\src\window\WindowWindows.h" />

@@ -25,9 +25,13 @@
 #include "juce_opengl/opengl/juce_gl.h"
 using namespace juce::gl;
 #else
+#include "GL/glew.h"
+#include "GL/glew.h"
+//#include "GL/glxew.h"
+#include "GL/wglew.h"
 #include <gl/GL.h>
-#include "platform/opengl/wglext.h"
-#include "platform/opengl/glext.h"
-#include "platform/opengl/glcorearb.h"
+//#include "platform/opengl/wglext.h"
+//#include "platform/opengl/glext.h"
+//#include "platform/opengl/glcorearb.h"
 #endif
 #endif

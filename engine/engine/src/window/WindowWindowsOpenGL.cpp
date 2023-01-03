@@ -119,9 +119,10 @@ namespace engine
 		ReleaseDC(fakeWND, fakeDC);
 		DestroyWindow(fakeWND);
 
-		m_renderThread = std::jthread(&WindowWindowsOpenGL::Render, this, m_stopSource.get_token());
 		
 
+		m_renderThread = std::jthread(&WindowWindowsOpenGL::Render, this, m_stopSource.get_token());
+		
 		
 	}
 
@@ -190,6 +191,12 @@ namespace engine
 		wglGetSwapIntervalEXT = (PFNWGLGETSWAPINTERVALEXTPROC)wglGetProcAddress("wglGetSwapIntervalEXT");
 		
 		wglSwapIntervalEXT(1);
+
+		auto err = glewInit();
+		if (err != GLEW_OK)
+		{
+			throw std::runtime_error("wglCreateContextAttribsARB not found");
+		}
 
 		{
 			RendererOpenGL renderer;
