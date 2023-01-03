@@ -30,6 +30,8 @@
 ** THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+#if !WITH_EDITOR
+
 #ifndef GLEW_INCLUDE
 #include <GL/glew.h>
 #else
@@ -28579,3 +28581,4 @@ GLboolean eglewIsSupported (const char* name)
 }
 
 #endif /* _WIN32 */
+#endif

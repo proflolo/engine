@@ -200,7 +200,7 @@ namespace engine
 
 		{
 			RendererOpenGL renderer;
-
+			
 			while (!i_stopToken.stop_requested())
 			{
 				renderer.BeginRender(i_stopToken);

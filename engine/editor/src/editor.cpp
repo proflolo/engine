@@ -30,8 +30,11 @@ public:
 
     void render() override
     {
-        m_renderer.render(m_stopSource.get_token());
+        m_renderer.BeginRender(m_stopSource.get_token());
         glEnable(GL_BLEND);
+        
+        m_renderer.EndRender(m_stopSource.get_token());
+
     }
 
     void paint(juce::Graphics& g) override
