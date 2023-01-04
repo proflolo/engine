@@ -1,9 +1,11 @@
-#include "StdAfx.h"
+﻿#include "StdAfx.h"
 #include "RendererOpenGL.h"
 #include "render/Mesh.h"
 #include "render/Material.h"
 #include "GPUResourceMeshOpenGL.h"
 #include "GPUResourceMaterialOpenGL.h"
+#include "OpenGLResult.h"
+
 namespace engine
 {
 	class GPUResourceHolder: public GPUResource
@@ -37,8 +39,8 @@ namespace engine
 
 	RendererOpenGL::RendererOpenGL()
 	{
-		//glEnable(GL_DEBUG_OUTPUT);
-		//glDebugMessageCallback(MessageCallback, 0);
+		glEnable(GL_DEBUG_OUTPUT);
+		glDebugMessageCallback(DebugMessageCallback, 0);
 	}
 
 	RendererOpenGL::~RendererOpenGL()
@@ -67,6 +69,12 @@ namespace engine
 		}
 	}
 
+	template<typename T>
+	inline T& GetGPUResource(Resource& i_resource)
+	{
+		return static_cast<T&>(*i_resource.GetGPUResource<GPUResourceHolder>().realResource);
+	}
+
 	void RendererOpenGL::Render(Mesh& i_mesh, Material& i_material)
 	{
 		if (!i_mesh.HasGPUResource())
@@ -86,11 +94,51 @@ namespace engine
 			m_activeResources.emplace_back(handle);
 			i_material.AssignGPUResource(std::move(handle));
 		}
+
+		GPUResourceMeshOpenGL& meshGL = GetGPUResource<GPUResourceMeshOpenGL>(i_mesh);
+		GPUResourceMaterialOpenGL& materialGL = GetGPUResource<GPUResourceMaterialOpenGL>(i_material);
+		
+		materialGL.Use();
+		
+		glBindVertexArray(meshGL.GetVertexArray());
+		glBindBuffer(GL_ARRAY_BUFFER, meshGL.GetVertexBuffer());
+		opengl_check();
+
+		glEnableVertexAttribArray(0);
+		opengl_check();
+		glVertexAttribPointer(
+			0, // attribute 0. No particular reason for 0, but must match the layout in the shader.
+			3,	// size
+			GL_FLOAT, // type
+			GL_FALSE, // normalized?
+			0, // stride
+			(void*)0 // array buffer offset
+		);
+		opengl_check();
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshGL.GetIndexBuffer());
+		opengl_check();
+
+		// Draw the triangles !
+		glDrawElements(
+			GL_TRIANGLES,      // mode
+			meshGL.GetIndexSize(),    // count
+			GL_UNSIGNED_INT,   // type
+			(void*)0           // element array buffer offset
+		);
+
+		opengl_check();
+
 	}
 
 	void RendererOpenGL::FlagResourceForDeletion(std::unique_ptr<GPUResourceOpenGL> i_resource)
 	{
 		std::scoped_lock lock(m_deleteMutex);
 		m_toDeleteResources.emplace_back(std::move(i_resource));
+	}
+
+	void RendererOpenGL::DebugMessageCallback(GLenum source​, GLenum type​, GLuint id​, GLenum severity​, GLsizei length​, const GLchar* message​, const void* userParam​)
+	{
+
 	}
 }

@@ -7,6 +7,7 @@ namespace engine
 	class Module
 	{
 	public:
+		virtual ~Module() = default;
 		virtual const engine::definitions& GetDefinitions() const = 0;
 	};
 }

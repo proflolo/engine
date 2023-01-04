@@ -161,9 +161,14 @@
     <ClCompile Include="..\src\GameModule.cpp" />
     <ClCompile Include="..\src\Main.cpp" />
     <ClCompile Include="..\src\Module.cpp" />
+    <ClCompile Include="..\src\render\Material.cpp" />
+    <ClCompile Include="..\src\render\Mesh.cpp" />
+    <ClCompile Include="..\src\render\opengl\GPUResourceMaterialOpenGL.cpp" />
+    <ClCompile Include="..\src\render\opengl\GPUResourceMeshOpenGL.cpp" />
     <ClCompile Include="..\src\render\opengl\RendererOpenGL.cpp" />
     <ClCompile Include="..\src\render\RenderClient.cpp" />
     <ClCompile Include="..\src\render\Renderer.cpp" />
+    <ClCompile Include="..\src\render\Resource.cpp" />
     <ClCompile Include="..\src\StdAfx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-Editor|x64'">Create</PrecompiledHeader>
@@ -181,10 +186,18 @@
     <ClInclude Include="..\include\engine\EngineStdAfx.h" />
     <ClInclude Include="..\include\engine\GameModule.h" />
     <ClInclude Include="..\include\engine\Module.h" />
+    <ClInclude Include="..\include\engine\render\Material.h" />
+    <ClInclude Include="..\include\engine\render\Mesh.h" />
     <ClInclude Include="..\include\engine\render\RenderClient.h" />
     <ClInclude Include="..\include\engine\render\Renderer.h" />
+    <ClInclude Include="..\include\engine\render\Resource.h" />
     <ClInclude Include="..\include\engine\window\Window.h" />
     <ClInclude Include="..\src\EngineDefs.h" />
+    <ClInclude Include="..\src\render\GPUResource.h" />
+    <ClInclude Include="..\src\render\opengl\GPUResourceMaterialOpenGL.h" />
+    <ClInclude Include="..\src\render\opengl\GPUResourceMeshOpenGL.h" />
+    <ClInclude Include="..\src\render\opengl\GPUResourceOpenGL.h" />
+    <ClInclude Include="..\src\render\opengl\OpenGLResult.h" />
     <ClInclude Include="..\src\render\opengl\RendererOpenGL.h" />
     <ClInclude Include="..\src\StdAfx.h" />
     <ClInclude Include="..\src\window\WindowWindows.h" />

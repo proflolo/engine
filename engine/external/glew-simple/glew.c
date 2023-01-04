@@ -32,6 +32,10 @@
 
 #if !WITH_EDITOR
 
+#ifdef __cplusplus
+#error
+#endif
+
 #ifndef GLEW_INCLUDE
 #include <GL/glew.h>
 #else

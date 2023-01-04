@@ -1,5 +1,6 @@
 #include "StdAfx.h"
 #include "Game.h"
+#include "engine/render/Renderer.h"
 
 
 class Character: public engine::definition<Character, "Char", editor::ui_name("C")>
@@ -53,7 +54,7 @@ engine::RenderClient& Game::GetRenderClient()
 
 void Game::Render(std::stop_token i_stopToken, engine::Renderer& i_renderer)
 {
-
+	i_renderer.Render(m_mesh, m_material);
 }
 
 namespace engine

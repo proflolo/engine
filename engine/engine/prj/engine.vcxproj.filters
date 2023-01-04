@@ -66,6 +66,21 @@
     <ClCompile Include="..\..\external\glew-simple\glew.c">
       <Filter>src\platform</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\render\Resource.cpp">
+      <Filter>src\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\render\Material.cpp">
+      <Filter>src\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\render\Mesh.cpp">
+      <Filter>src\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\render\opengl\GPUResourceMaterialOpenGL.cpp">
+      <Filter>src\render\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\render\opengl\GPUResourceMeshOpenGL.cpp">
+      <Filter>src\render\opengl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\StdAfx.h">
@@ -112,6 +127,30 @@
     </ClInclude>
     <ClInclude Include="..\include\engine\render\RenderClient.h">
       <Filter>include\engine\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\engine\render\Material.h">
+      <Filter>include\engine\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\engine\render\Mesh.h">
+      <Filter>include\engine\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\engine\render\Resource.h">
+      <Filter>include\engine\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\render\GPUResource.h">
+      <Filter>src\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\render\opengl\GPUResourceMeshOpenGL.h">
+      <Filter>src\render\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\render\opengl\GPUResourceOpenGL.h">
+      <Filter>src\render\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\render\opengl\GPUResourceMaterialOpenGL.h">
+      <Filter>src\render\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\render\opengl\OpenGLResult.h">
+      <Filter>src\render\opengl</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

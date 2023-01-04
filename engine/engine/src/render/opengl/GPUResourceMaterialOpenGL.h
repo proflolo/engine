@@ -7,5 +7,12 @@ namespace engine
 	{
 	public:
 		GPUResourceMaterialOpenGL();
+		~GPUResourceMaterialOpenGL();
+
+		void Use();
+
+	private:
+		
+		GLuint m_programId;
 	};
 }

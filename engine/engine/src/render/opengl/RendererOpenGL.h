@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "engine/render/Renderer.h"
 
 namespace engine
@@ -20,6 +20,9 @@ namespace engine
 		void FlagResourceForDeletion(std::unique_ptr<GPUResourceOpenGL>i_resource);
 
 	private:
+
+		static void DebugMessageCallback(GLenum source​, GLenum type​, GLuint id​, GLenum severity​, GLsizei length​, const GLchar* message​, const void* userParam​);
+
 		std::vector<std::weak_ptr<GPUResourceHolder>> m_activeResources;
 		std::vector<std::unique_ptr<GPUResourceOpenGL>> m_toDeleteResources;
 

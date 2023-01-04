@@ -3,6 +3,7 @@
 
 namespace engine
 {
+
 	class Mesh: public Resource
 	{
 	public:
