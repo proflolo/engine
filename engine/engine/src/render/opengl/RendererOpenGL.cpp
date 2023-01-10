@@ -1,4 +1,5 @@
 #include "StdAfx.h"
+#if ENGINE_OPENGL
 #include "RendererOpenGL.h"
 
 namespace engine
@@ -15,3 +16,4 @@ namespace engine
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
 }
+#endif

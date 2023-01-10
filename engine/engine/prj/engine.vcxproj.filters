@@ -66,6 +66,9 @@
     <ClCompile Include="..\..\external\glew-simple\glew.c">
       <Filter>src\platform</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\window\WindowWindowsVulkan.cpp">
+      <Filter>src\window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\StdAfx.h">
@@ -112,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="..\include\engine\render\RenderClient.h">
       <Filter>include\engine\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\window\WindowWindowsVulkan.h">
+      <Filter>src\window</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
 #pragma once
+#if ENGINE_OPENGL
 #include "engine/render/Renderer.h"
 
 namespace engine
@@ -10,3 +11,4 @@ namespace engine
 		void EndRender(std::stop_token i_stopToken);
 	};
 }
+#endif

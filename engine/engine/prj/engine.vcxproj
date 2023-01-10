@@ -172,6 +172,7 @@
     </ClCompile>
     <ClCompile Include="..\src\window\WindowWindows.cpp" />
     <ClCompile Include="..\src\window\WindowWindowsOpenGL.cpp" />
+    <ClCompile Include="..\src\window\WindowWindowsVulkan.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\engine\core\string_literal.h" />
@@ -189,6 +190,7 @@
     <ClInclude Include="..\src\StdAfx.h" />
     <ClInclude Include="..\src\window\WindowWindows.h" />
     <ClInclude Include="..\src\window\WindowWindowsOpenGL.h" />
+    <ClInclude Include="..\src\window\WindowWindowsVulkan.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

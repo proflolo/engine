@@ -1,5 +1,5 @@
 #pragma once
-#if PLATFORM_WINDOWS && !WITH_EDITOR
+#if PLATFORM_WINDOWS && !WITH_EDITOR && ENGINE_OPENGL
 #include "WindowWindows.h"
 
 namespace engine

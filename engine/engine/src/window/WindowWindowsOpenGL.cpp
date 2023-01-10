@@ -1,4 +1,5 @@
 #include "StdAfx.h"
+#if PLATFORM_WINDOWS && !WITH_EDITOR && ENGINE_OPENGL
 #include "window/WindowWindowsOpenGL.h"
 #include "render/opengl/RendererOpenGL.h"
 #include "render/RenderClient.h"
@@ -8,7 +9,6 @@
 
 //https://mariuszbartosik.com/opengl-4-x-initialization-in-windows-without-a-framework/
 
-#if PLATFORM_WINDOWS && !WITH_EDITOR
 LRESULT FakeWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	return DefWindowProc(hWnd, uMsg, wParam, lParam);
