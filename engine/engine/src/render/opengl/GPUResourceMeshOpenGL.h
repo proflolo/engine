@@ -1,4 +1,5 @@
 #pragma once
+#if ENGINE_OPENGL
 #include "GPUResourceOpenGL.h"
 
 namespace engine
@@ -23,3 +24,4 @@ namespace engine
 		GLsizei m_indexSize;
 	};
 }
+#endif

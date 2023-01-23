@@ -1,4 +1,5 @@
 #include "StdAfx.h"
+#if ENGINE_OPENGL
 #include "GPUResourceMeshOpenGL.h"
 #include "GPUResourceMaterialOpenGL.h"
 #include "OpenGLResult.h"
@@ -106,3 +107,4 @@ namespace engine
 	}
 
 }
+#endif

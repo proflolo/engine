@@ -169,6 +169,7 @@
     <ClCompile Include="..\src\render\RenderClient.cpp" />
     <ClCompile Include="..\src\render\Renderer.cpp" />
     <ClCompile Include="..\src\render\Resource.cpp" />
+    <ClCompile Include="..\src\render\vulkan\RendererVulkan.cpp" />
     <ClCompile Include="..\src\StdAfx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-Editor|x64'">Create</PrecompiledHeader>
@@ -177,6 +178,7 @@
     </ClCompile>
     <ClCompile Include="..\src\window\WindowWindows.cpp" />
     <ClCompile Include="..\src\window\WindowWindowsOpenGL.cpp" />
+    <ClCompile Include="..\src\window\WindowWindowsVulkan.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\engine\core\string_literal.h" />
@@ -199,9 +201,11 @@
     <ClInclude Include="..\src\render\opengl\GPUResourceOpenGL.h" />
     <ClInclude Include="..\src\render\opengl\OpenGLResult.h" />
     <ClInclude Include="..\src\render\opengl\RendererOpenGL.h" />
+    <ClInclude Include="..\src\render\vulkan\RendererVulkan.h" />
     <ClInclude Include="..\src\StdAfx.h" />
     <ClInclude Include="..\src\window\WindowWindows.h" />
     <ClInclude Include="..\src\window\WindowWindowsOpenGL.h" />
+    <ClInclude Include="..\src\window\WindowWindowsVulkan.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

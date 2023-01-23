@@ -1,4 +1,5 @@
 #include "StdAfx.h"
+#if ENGINE_OPENGL
 #include "GPUResourceMeshOpenGL.h"
 #include "OpenGLResult.h"
 
@@ -69,3 +70,4 @@ namespace engine
 		return m_indexSize;
 	}
 }
+#endif

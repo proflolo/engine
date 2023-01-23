@@ -34,6 +34,9 @@
     <Filter Include="src\render\opengl">
       <UniqueIdentifier>{22732362-8ce9-4c45-9a2e-db1a59c20228}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\render\vulkan">
+      <UniqueIdentifier>{af26a983-ec63-4928-8e6b-8ffd731ddad6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\StdAfx.cpp">
@@ -66,6 +69,9 @@
     <ClCompile Include="..\..\external\glew-simple\glew.c">
       <Filter>src\platform</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\window\WindowWindowsVulkan.cpp">
+      <Filter>src\window</Filter>
+    </ClCompile>
     <ClCompile Include="..\src\render\Resource.cpp">
       <Filter>src\render</Filter>
     </ClCompile>
@@ -80,6 +86,9 @@
     </ClCompile>
     <ClCompile Include="..\src\render\opengl\GPUResourceMeshOpenGL.cpp">
       <Filter>src\render\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\render\vulkan\RendererVulkan.cpp">
+      <Filter>src\render\vulkan</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +137,9 @@
     <ClInclude Include="..\include\engine\render\RenderClient.h">
       <Filter>include\engine\render</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\window\WindowWindowsVulkan.h">
+      <Filter>src\window</Filter>
+    </ClInclude>
     <ClInclude Include="..\include\engine\render\Material.h">
       <Filter>include\engine\render</Filter>
     </ClInclude>
@@ -151,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="..\src\render\opengl\OpenGLResult.h">
       <Filter>src\render\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\render\vulkan\RendererVulkan.h">
+      <Filter>src\render\vulkan</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

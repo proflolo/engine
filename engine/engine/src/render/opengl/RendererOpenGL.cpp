@@ -1,4 +1,5 @@
-﻿#include "StdAfx.h"
+#include "StdAfx.h"
+#if ENGINE_OPENGL
 #include "RendererOpenGL.h"
 #include "render/Mesh.h"
 #include "render/Material.h"
@@ -137,8 +138,9 @@ namespace engine
 		m_toDeleteResources.emplace_back(std::move(i_resource));
 	}
 
-	void RendererOpenGL::DebugMessageCallback(GLenum source​, GLenum type​, GLuint id​, GLenum severity​, GLsizei length​, const GLchar* message​, const void* userParam​)
+	void RendererOpenGL::DebugMessageCallback(GLenum source?, GLenum type?, GLuint id?, GLenum severity?, GLsizei length?, const GLchar* message?, const void* userParam?)
 	{
 
 	}
 }
+#endif

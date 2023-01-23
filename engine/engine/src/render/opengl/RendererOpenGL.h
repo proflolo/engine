@@ -1,4 +1,5 @@
-﻿#pragma once
+#pragma once
+#if ENGINE_OPENGL
 #include "engine/render/Renderer.h"
 
 namespace engine
@@ -21,7 +22,7 @@ namespace engine
 
 	private:
 
-		static void DebugMessageCallback(GLenum source​, GLenum type​, GLuint id​, GLenum severity​, GLsizei length​, const GLchar* message​, const void* userParam​);
+		static void DebugMessageCallback(GLenum source?, GLenum type?, GLuint id?, GLenum severity?, GLsizei length?, const GLchar* message?, const void* userParam?);
 
 		std::vector<std::weak_ptr<GPUResourceHolder>> m_activeResources;
 		std::vector<std::unique_ptr<GPUResourceOpenGL>> m_toDeleteResources;
@@ -29,3 +30,4 @@ namespace engine
 		std::mutex m_deleteMutex;
 	};
 }
+#endif

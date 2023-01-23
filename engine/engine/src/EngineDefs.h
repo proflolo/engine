@@ -7,7 +7,10 @@
 #	define PLATFORM_JUCE 1
 #	define JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED
 #elif _WIN32
-#	define ENGINE_OPENGL 1
+//Rendering
+#	define ENGINE_OPENGL 0
+#	define ENGINE_VULKAN 1
+//OS
 #	define PLATFORM_WINDOWS 1
 #endif
 
@@ -34,4 +37,7 @@ using namespace juce::gl;
 //#include "platform/opengl/glext.h"
 //#include "platform/opengl/glcorearb.h"
 #endif
+#elif ENGINE_VULKAN
+#define VK_USE_PLATFORM_WIN32_KHR
+#include <vulkan/vulkan.h>
 #endif
