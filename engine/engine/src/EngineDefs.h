@@ -8,8 +8,8 @@
 #	define JUCE_GLOBAL_MODULE_SETTINGS_INCLUDED
 #elif _WIN32
 //Rendering
-#	define ENGINE_OPENGL 0
-#	define ENGINE_VULKAN 1
+#	define ENGINE_OPENGL 1
+#	define ENGINE_VULKAN 0
 //OS
 #	define PLATFORM_WINDOWS 1
 #endif

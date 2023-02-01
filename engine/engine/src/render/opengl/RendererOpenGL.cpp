@@ -138,7 +138,7 @@ namespace engine
 		m_toDeleteResources.emplace_back(std::move(i_resource));
 	}
 
-	void RendererOpenGL::DebugMessageCallback(GLenum source?, GLenum type?, GLuint id?, GLenum severity?, GLsizei length?, const GLchar* message?, const void* userParam?)
+	void RendererOpenGL::DebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
 	{
 
 	}
