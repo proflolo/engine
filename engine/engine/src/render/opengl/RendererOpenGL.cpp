@@ -90,7 +90,7 @@ namespace engine
 		if (!i_material.HasGPUResource())
 		{
 			//Create it!
-			std::unique_ptr<GPUResourceMaterialOpenGL> gpuResource = std::make_unique<GPUResourceMaterialOpenGL>();
+			std::unique_ptr<GPUResourceMaterialOpenGL> gpuResource = std::make_unique<GPUResourceMaterialOpenGL>(m_compiler);
 			std::shared_ptr<GPUResourceHolder> handle = std::make_shared<GPUResourceHolder>(*this, std::move(gpuResource));
 			m_activeResources.emplace_back(handle);
 			i_material.AssignGPUResource(std::move(handle));

@@ -1,7 +1,7 @@
 #pragma once
 #if ENGINE_OPENGL
 #include "engine/render/Renderer.h"
-
+#include "render/shadercompiler/SpirVCompiler.h"
 namespace engine
 {
 	class GPUResourceOpenGL;
@@ -26,6 +26,7 @@ namespace engine
 
 		std::vector<std::weak_ptr<GPUResourceHolder>> m_activeResources;
 		std::vector<std::unique_ptr<GPUResourceOpenGL>> m_toDeleteResources;
+		SpirVCompiler m_compiler;
 
 		std::mutex m_deleteMutex;
 	};

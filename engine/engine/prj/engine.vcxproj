@@ -59,23 +59,23 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="engine.props" />
     <Import Project="..\..\engine-game.props" />
+    <Import Project="engine-debug.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug-Editor|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="engine.props" />
     <Import Project="..\..\engine-editor.props" />
+    <Import Project="engine-debug.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="engine.props" />
     <Import Project="..\..\engine-game.props" />
+    <Import Project="engine-release.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release-Editor|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="engine.props" />
     <Import Project="..\..\engine-editor.props" />
+    <Import Project="engine-release.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -130,7 +130,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -157,6 +157,7 @@
     <ClCompile Include="..\..\external\glew-simple\glew.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-Editor|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\src\GameModule.cpp" />
     <ClCompile Include="..\src\Main.cpp" />
@@ -169,6 +170,7 @@
     <ClCompile Include="..\src\render\RenderClient.cpp" />
     <ClCompile Include="..\src\render\Renderer.cpp" />
     <ClCompile Include="..\src\render\Resource.cpp" />
+    <ClCompile Include="..\src\render\shadercompiler\SpirVCompiler.cpp" />
     <ClCompile Include="..\src\render\vulkan\RendererVulkan.cpp" />
     <ClCompile Include="..\src\StdAfx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -201,6 +203,7 @@
     <ClInclude Include="..\src\render\opengl\GPUResourceOpenGL.h" />
     <ClInclude Include="..\src\render\opengl\OpenGLResult.h" />
     <ClInclude Include="..\src\render\opengl\RendererOpenGL.h" />
+    <ClInclude Include="..\src\render\shadercompiler\SpirVCompiler.h" />
     <ClInclude Include="..\src\render\vulkan\RendererVulkan.h" />
     <ClInclude Include="..\src\StdAfx.h" />
     <ClInclude Include="..\src\window\WindowWindows.h" />

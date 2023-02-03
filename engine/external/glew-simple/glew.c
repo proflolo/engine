@@ -1,3 +1,4 @@
+#include "EngineDefs.h"
 #if ENGINE_OPENGL
 /*
 ** The OpenGL Extension Wrangler Library
@@ -32,6 +33,7 @@
 */
 
 #if !WITH_EDITOR
+
 
 #ifdef __cplusplus
 #error

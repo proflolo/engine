@@ -37,6 +37,9 @@
     <Filter Include="src\render\vulkan">
       <UniqueIdentifier>{af26a983-ec63-4928-8e6b-8ffd731ddad6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\render\shadercompiler">
+      <UniqueIdentifier>{e9d355d0-157d-4f47-999f-ac9a75a25b93}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\StdAfx.cpp">
@@ -89,6 +92,9 @@
     </ClCompile>
     <ClCompile Include="..\src\render\vulkan\RendererVulkan.cpp">
       <Filter>src\render\vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\render\shadercompiler\SpirVCompiler.cpp">
+      <Filter>src\render\shadercompiler</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="..\src\render\vulkan\RendererVulkan.h">
       <Filter>src\render\vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\render\shadercompiler\SpirVCompiler.h">
+      <Filter>src\render\shadercompiler</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

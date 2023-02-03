@@ -4,10 +4,11 @@
 
 namespace engine
 {
+	class SpirVCompiler;
 	class GPUResourceMaterialOpenGL : public GPUResourceOpenGL
 	{
 	public:
-		GPUResourceMaterialOpenGL();
+		GPUResourceMaterialOpenGL(const SpirVCompiler& i_compiler);
 		~GPUResourceMaterialOpenGL();
 
 		void Use();

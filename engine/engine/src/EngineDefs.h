@@ -15,7 +15,9 @@
 #endif
 
 
-
+#if ENGINE_OPENGL
+#	define SPIRV_OPENGL 0
+#endif
 
 
 #if PLATFORM_WINDOWS
@@ -33,6 +35,8 @@ using namespace juce::gl;
 //#include "GL/glxew.h"
 #include "GL/wglew.h"
 #include <gl/GL.h>
+
+//static_assert(GLEW_VERSION_4_6, "No OpenGL 4.6");
 //#include "platform/opengl/wglext.h"
 //#include "platform/opengl/glext.h"
 //#include "platform/opengl/glcorearb.h"
