@@ -1,4 +1,5 @@
 #pragma once
+#if ENGINE_VULKAN
 #include "render/Renderer.h"
 
 namespace engine
@@ -9,10 +10,11 @@ namespace engine
 		RendererVulkan();
 		~RendererVulkan();
 
-		void Render(Mesh& i_mesh, Material& i_material) override;
+		void Render(MeshGeneric& i_mesh, Material& i_material) override;
 
 	private:
 		
 		void Cleanup();
 	};
 }
+#endif

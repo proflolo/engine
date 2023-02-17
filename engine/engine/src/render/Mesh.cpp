@@ -3,12 +3,13 @@
 
 namespace engine
 {
-	Mesh::Mesh()
+	MeshGeneric::~MeshGeneric()
 	{
 
 	}
 
-	Mesh::~Mesh()
+	MeshGeneric::MeshGeneric(std::vector<unsigned int> i_indices)
+		: m_indices(std::move(i_indices))
 	{
 
 	}

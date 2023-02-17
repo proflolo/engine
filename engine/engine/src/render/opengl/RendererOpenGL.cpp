@@ -3,41 +3,13 @@
 #include "RendererOpenGL.h"
 #include "render/Mesh.h"
 #include "render/Material.h"
-#include "GPUResourceMeshOpenGL.h"
-#include "GPUResourceMaterialOpenGL.h"
+#include "MeshOpenGL.h"
+#include "MaterialOpenGL.h"
 #include "OpenGLResult.h"
 
 namespace engine
 {
-	class GPUResourceHolder: public GPUResource
-	{
-	public:
-		GPUResourceHolder(RendererOpenGL& i_renderer, std::unique_ptr<GPUResourceOpenGL> i_realResource)
-			: renderer(&i_renderer)
-			, realResource(std::move(i_realResource))
-		{
-
-		}
-
-		~GPUResourceHolder()
-		{
-			if (renderer)
-			{
-				renderer->FlagResourceForDeletion(std::move(realResource));
-				renderer = nullptr;
-			}
-		}
-
-		std::unique_ptr<GPUResourceOpenGL> Extract()
-		{
-			renderer = nullptr;
-			return std::move(realResource);
-		}
-
-		RendererOpenGL* renderer;
-		std::unique_ptr<GPUResourceOpenGL> realResource;
-	};
-
+	
 	RendererOpenGL::RendererOpenGL()
 	{
 		glEnable(GL_DEBUG_OUTPUT);
@@ -46,13 +18,7 @@ namespace engine
 
 	RendererOpenGL::~RendererOpenGL()
 	{
-		for (const std::weak_ptr<GPUResourceHolder>& activeResource : m_activeResources)
-		{
-			if (std::shared_ptr<GPUResourceHolder> resource = activeResource.lock())
-			{
-				resource->Extract();
-			}
-		}
+		
 	}
 
 	void RendererOpenGL::BeginRender(std::stop_token i_stopToken)
@@ -61,69 +27,84 @@ namespace engine
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
-	void RendererOpenGL::EndRender(std::stop_token i_stopToken)
-	{
-		decltype(m_toDeleteResources) toDelete;
-		{
-			std::scoped_lock lock(m_deleteMutex);
-			std::swap(toDelete, m_toDeleteResources);
-		}
-	}
 
 	template<typename T>
-	inline T& GetGPUResource(Resource& i_resource)
+	inline void RendererOpenGL::ClearUnusedResources(std::vector<ResourceHolder<T>>& io_resources)
 	{
-		return static_cast<T&>(*i_resource.GetGPUResource<GPUResourceHolder>().realResource);
+		for (auto& resource : io_resources)
+		{
+			if (resource.resource)
+			{
+				if (resource.lastUsed + std::chrono::seconds(5) < std::chrono::system_clock::now())
+				{
+					resource.resource = std::nullopt;
+				}
+			}
+		}
 	}
 
-	void RendererOpenGL::Render(Mesh& i_mesh, Material& i_material)
+	template<typename R, typename T>
+	RenderResource<R>::Id RendererOpenGL::AllocateResource(std::vector<ResourceHolder<T>>& io_resources, T&& i_resource)
 	{
-		if (!i_mesh.HasGPUResource())
+		io_resources.emplace_back(std::move(i_resource), std::chrono::system_clock::now());
+		size_t index = io_resources.size() -1;
+		return index;
+	}
+
+	void RendererOpenGL::EndRender(std::stop_token i_stopToken)
+	{
+		ClearUnusedResources(m_meshes);
+		ClearUnusedResources(m_materials);
+	}
+
+	void RendererOpenGL::Render(MeshGeneric& i_mesh, MaterialGeneric& i_material, const RenderLayout& i_layout)
+	{
+		if (!i_mesh.HasRenderResource() || !m_meshes[i_mesh.renderResource].resource)
 		{
 			//Create it!
-			std::unique_ptr<GPUResourceMeshOpenGL> gpuResource = std::make_unique<GPUResourceMeshOpenGL>();
-			std::shared_ptr<GPUResourceHolder> handle = std::make_shared<GPUResourceHolder>(*this, std::move(gpuResource));
-			m_activeResources.emplace_back(handle);
-			i_mesh.AssignGPUResource(std::move(handle));
+			i_mesh.renderResource = AllocateResource<MeshGeneric>(m_meshes, GPUResourceMeshOpenGL(i_mesh));
 		}
 
-		if (!i_material.HasGPUResource())
+		if (!i_material.HasRenderResource() || !m_materials[i_material.renderResource].resource)
 		{
 			//Create it!
-			std::unique_ptr<GPUResourceMaterialOpenGL> gpuResource = std::make_unique<GPUResourceMaterialOpenGL>(m_compiler);
-			std::shared_ptr<GPUResourceHolder> handle = std::make_shared<GPUResourceHolder>(*this, std::move(gpuResource));
-			m_activeResources.emplace_back(handle);
-			i_material.AssignGPUResource(std::move(handle));
+
+			//std::shared_ptr<GPUResourceHolder> handle = std::make_shared<GPUResourceHolder>(*this, std::move(gpuResource));
+			i_material.renderResource = AllocateResource<MaterialGeneric>(m_materials, GPUResourceMaterialOpenGL(m_compiler));
 		}
 
-		GPUResourceMeshOpenGL& meshGL = GetGPUResource<GPUResourceMeshOpenGL>(i_mesh);
-		GPUResourceMaterialOpenGL& materialGL = GetGPUResource<GPUResourceMaterialOpenGL>(i_material);
-		
-		materialGL.Use();
-		
-		glBindVertexArray(meshGL.GetVertexArray());
-		glBindBuffer(GL_ARRAY_BUFFER, meshGL.GetVertexBuffer());
+		ResourceHolder<GPUResourceMeshOpenGL>& meshGPU = m_meshes[i_mesh.renderResource];
+		ResourceHolder<GPUResourceMaterialOpenGL>& materialGPU = m_materials[i_material.renderResource];
+
+		if (meshGPU.resource && materialGPU.resource)
+		{
+			meshGPU.lastUsed = std::chrono::system_clock::now();
+			materialGPU.lastUsed = std::chrono::system_clock::now();
+			Render(*meshGPU.resource, *materialGPU.resource, i_layout);
+		}
+	}
+
+	
+	
+
+	void RendererOpenGL::Render(GPUResourceMeshOpenGL& i_mesh, GPUResourceMaterialOpenGL& i_material, const RenderLayout& i_layout)
+	{
+		i_material.Use();
+
+		glBindVertexArray(i_mesh.GetVertexArray());
+		glBindBuffer(GL_ARRAY_BUFFER, i_mesh.GetVertexBuffer());
 		opengl_check();
 
-		glEnableVertexAttribArray(0);
-		opengl_check();
-		glVertexAttribPointer(
-			0, // attribute 0. No particular reason for 0, but must match the layout in the shader.
-			3,	// size
-			GL_FLOAT, // type
-			GL_FALSE, // normalized?
-			0, // stride
-			(void*)0 // array buffer offset
-		);
-		opengl_check();
+		BindLayout(0, i_layout);
+		
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshGL.GetIndexBuffer());
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, i_mesh.GetIndexBuffer());
 		opengl_check();
 
 		// Draw the triangles !
 		glDrawElements(
 			GL_TRIANGLES,      // mode
-			meshGL.GetIndexSize(),    // count
+			i_mesh.GetIndexSize(),    // count
 			GL_UNSIGNED_INT,   // type
 			(void*)0           // element array buffer offset
 		);
@@ -132,10 +113,23 @@ namespace engine
 
 	}
 
-	void RendererOpenGL::FlagResourceForDeletion(std::unique_ptr<GPUResourceOpenGL> i_resource)
+	void RendererOpenGL::BindLayout(GLuint i_arrayIndex, const RenderLayout& i_layout)
 	{
-		std::scoped_lock lock(m_deleteMutex);
-		m_toDeleteResources.emplace_back(std::move(i_resource));
+		glEnableVertexAttribArray(0);
+		opengl_check();
+		for (const auto& field : i_layout.fields)
+		{
+			glVertexAttribPointer(
+				field.shaderLayout, // attribute 0. No particular reason for 0, but must match the layout in the shader.
+				field.size,	// size
+				GL_FLOAT, // type
+				GL_FALSE, // normalized?
+				field.stride, // stride
+				(void*)field.start // array buffer offset
+			);
+			opengl_check();
+		}
+		
 	}
 
 	void RendererOpenGL::DebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)

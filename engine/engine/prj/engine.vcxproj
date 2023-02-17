@@ -164,8 +164,8 @@
     <ClCompile Include="..\src\Module.cpp" />
     <ClCompile Include="..\src\render\Material.cpp" />
     <ClCompile Include="..\src\render\Mesh.cpp" />
-    <ClCompile Include="..\src\render\opengl\GPUResourceMaterialOpenGL.cpp" />
-    <ClCompile Include="..\src\render\opengl\GPUResourceMeshOpenGL.cpp" />
+    <ClCompile Include="..\src\render\opengl\MeshOpenGL.cpp" />
+    <ClCompile Include="..\src\render\opengl\MaterialOpenGL.cpp" />
     <ClCompile Include="..\src\render\opengl\RendererOpenGL.cpp" />
     <ClCompile Include="..\src\render\RenderClient.cpp" />
     <ClCompile Include="..\src\render\Renderer.cpp" />
@@ -183,6 +183,12 @@
     <ClCompile Include="..\src\window\WindowWindowsVulkan.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\engine\core\math\matrix.h" />
+    <ClInclude Include="..\include\engine\core\math\measure.h" />
+    <ClInclude Include="..\include\engine\core\math\operation_defs.h" />
+    <ClInclude Include="..\include\engine\core\math\random.h" />
+    <ClInclude Include="..\include\engine\core\math\vector.h" />
+    <ClInclude Include="..\include\engine\core\reflection.h" />
     <ClInclude Include="..\include\engine\core\string_literal.h" />
     <ClInclude Include="..\include\engine\definition\Definition.hpp" />
     <ClInclude Include="..\include\engine\definition\Definitionbase.hpp" />
@@ -194,15 +200,18 @@
     <ClInclude Include="..\include\engine\render\Mesh.h" />
     <ClInclude Include="..\include\engine\render\RenderClient.h" />
     <ClInclude Include="..\include\engine\render\Renderer.h" />
+    <ClInclude Include="..\include\engine\render\RenderLayout.h" />
+    <ClInclude Include="..\include\engine\render\RenderResource.h" />
     <ClInclude Include="..\include\engine\render\Resource.h" />
     <ClInclude Include="..\include\engine\window\Window.h" />
     <ClInclude Include="..\src\EngineDefs.h" />
     <ClInclude Include="..\src\render\GPUResource.h" />
-    <ClInclude Include="..\src\render\opengl\GPUResourceMaterialOpenGL.h" />
-    <ClInclude Include="..\src\render\opengl\GPUResourceMeshOpenGL.h" />
+    <ClInclude Include="..\src\render\opengl\MeshOpenGL.h" />
     <ClInclude Include="..\src\render\opengl\GPUResourceOpenGL.h" />
+    <ClInclude Include="..\src\render\opengl\MaterialOpenGL.h" />
     <ClInclude Include="..\src\render\opengl\OpenGLResult.h" />
     <ClInclude Include="..\src\render\opengl\RendererOpenGL.h" />
+    <ClInclude Include="..\src\render\RenderResource.h" />
     <ClInclude Include="..\src\render\shadercompiler\SpirVCompiler.h" />
     <ClInclude Include="..\src\render\vulkan\RendererVulkan.h" />
     <ClInclude Include="..\src\StdAfx.h" />

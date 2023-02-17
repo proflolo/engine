@@ -2,10 +2,9 @@
 #include "engine/GameModule.h"
 #include "engine/render/RenderClient.h"
 
-#include "engine/render/Material.h"
-#include "engine/render/Mesh.h"
-
 class Gamedb;
+
+
 
 class Game : public engine::GameModule, public engine::RenderClient
 {
@@ -24,7 +23,23 @@ public:
 private:
 	std::unique_ptr<Gamedb> m_gameDb;
 
-	engine::Material m_material;
-	engine::Mesh m_mesh;
+	
+
+	struct VertexData
+	{
+		VertexData() = default;
+		VertexData(float x, float y, float z)
+			:vertex(x,y,z)
+		{
+
+		}
+		engine::math::vector<float, 3> vertex;
+	};
+
+	engine::StaticMesh<VertexData> SampleMesh();
+
+	engine::Material<VertexData> m_material;
+
+	engine::StaticMesh<VertexData> m_mesh;
 };
 

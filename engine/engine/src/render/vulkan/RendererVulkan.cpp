@@ -1,4 +1,5 @@
 #include "StdAfx.h"
+#if ENGINE_VULKAN
 #include "RendererVulkan.h"
 namespace engine
 {
@@ -22,16 +23,6 @@ namespace engine
 	{
 
 	}
-
-	
-
-	
-
-
-	
-
-	
-
-	
-
 }
+
+#endif

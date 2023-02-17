@@ -3,12 +3,12 @@
 
 namespace engine
 {
-	Material::Material()
+	MaterialGeneric::MaterialGeneric()
 	{
 
 	}
 
-	Material::~Material()
+	MaterialGeneric::~MaterialGeneric()
 	{
 
 	}

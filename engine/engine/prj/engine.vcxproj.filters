@@ -40,6 +40,9 @@
     <Filter Include="src\render\shadercompiler">
       <UniqueIdentifier>{e9d355d0-157d-4f47-999f-ac9a75a25b93}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\engine\core\math">
+      <UniqueIdentifier>{40d7bd73-3652-45ab-875e-d87b95eddc2a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\StdAfx.cpp">
@@ -84,10 +87,7 @@
     <ClCompile Include="..\src\render\Mesh.cpp">
       <Filter>src\render</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\render\opengl\GPUResourceMaterialOpenGL.cpp">
-      <Filter>src\render\opengl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\render\opengl\GPUResourceMeshOpenGL.cpp">
+    <ClCompile Include="..\src\render\opengl\MeshOpenGL.cpp">
       <Filter>src\render\opengl</Filter>
     </ClCompile>
     <ClCompile Include="..\src\render\vulkan\RendererVulkan.cpp">
@@ -95,6 +95,9 @@
     </ClCompile>
     <ClCompile Include="..\src\render\shadercompiler\SpirVCompiler.cpp">
       <Filter>src\render\shadercompiler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\render\opengl\MaterialOpenGL.cpp">
+      <Filter>src\render\opengl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -158,13 +161,10 @@
     <ClInclude Include="..\src\render\GPUResource.h">
       <Filter>src\render</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\render\opengl\GPUResourceMeshOpenGL.h">
+    <ClInclude Include="..\src\render\opengl\MeshOpenGL.h">
       <Filter>src\render\opengl</Filter>
     </ClInclude>
     <ClInclude Include="..\src\render\opengl\GPUResourceOpenGL.h">
-      <Filter>src\render\opengl</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\render\opengl\GPUResourceMaterialOpenGL.h">
       <Filter>src\render\opengl</Filter>
     </ClInclude>
     <ClInclude Include="..\src\render\opengl\OpenGLResult.h">
@@ -175,6 +175,36 @@
     </ClInclude>
     <ClInclude Include="..\src\render\shadercompiler\SpirVCompiler.h">
       <Filter>src\render\shadercompiler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\render\RenderResource.h">
+      <Filter>src\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\render\opengl\MaterialOpenGL.h">
+      <Filter>src\render\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\engine\render\RenderResource.h">
+      <Filter>include\engine\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\engine\core\reflection.h">
+      <Filter>include\engine\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\engine\render\RenderLayout.h">
+      <Filter>src\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\engine\core\math\measure.h">
+      <Filter>include\engine\core\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\engine\core\math\operation_defs.h">
+      <Filter>include\engine\core\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\engine\core\math\random.h">
+      <Filter>include\engine\core\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\engine\core\math\vector.h">
+      <Filter>include\engine\core\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\engine\core\math\matrix.h">
+      <Filter>include\engine\core\math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

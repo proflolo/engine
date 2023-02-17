@@ -1,12 +1,22 @@
 #pragma once
 #include "Resource.h"
+#include "RenderResource.h"
 
 namespace engine
 {
-	class Material: public Resource
+	class MaterialGeneric: public Resource, public RenderResource<MaterialGeneric>
 	{
 	public:
-		Material();
-		~Material();
+		~MaterialGeneric();
+
+	protected:
+		MaterialGeneric();
+	};
+
+	template<typename Layout>
+	class Material : public MaterialGeneric
+	{
+	public:
+		Material() = default;
 	};
 }
