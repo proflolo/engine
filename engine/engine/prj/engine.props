@@ -13,7 +13,7 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeaderFile>StdAfx.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(EngineDir)\editor\include;$(EngineDir)\engine\src;$(EngineDir)\engine\include;$(EngineDir)\external\glew-simple\;$(EngineDir)\external\EGL\api;$(EngineDir)\engine\include\engine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EngineDir)\editor\include;$(EngineDir)\engine\src;$(EngineDir)\engine\include;$(EngineDir)\external\glew-simple\;$(EngineDir)\external\EGL\api;$(EngineDir)\engine\include\engine;$(VulkanSDK)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>

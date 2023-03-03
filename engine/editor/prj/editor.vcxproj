@@ -108,7 +108,11 @@
     <ClCompile Include="..\..\external\juce\modules\juce_opengl\juce_opengl.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-Editor|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\src\assetwidgets\AssetNavigator.cpp" />
+    <ClCompile Include="..\src\assetwidgets\AssetProperties.cpp" />
     <ClCompile Include="..\src\editor.cpp" />
+    <ClCompile Include="..\src\EngineView.cpp" />
+    <ClCompile Include="..\src\MainComponent.cpp" />
     <ClCompile Include="..\src\StdAfx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-Editor|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-Editor|x64'">Create</PrecompiledHeader>
@@ -121,6 +125,10 @@
     <ClInclude Include="..\include\editor\definition\FieldDef.hpp" />
     <ClInclude Include="..\include\editor\definition\Properties.hpp" />
     <ClInclude Include="..\include\editor\definition\PropertyElement.hpp" />
+    <ClInclude Include="..\src\assetwidgets\AssetNavigator.h" />
+    <ClInclude Include="..\src\assetwidgets\AssetProperties.h" />
+    <ClInclude Include="..\src\EngineView.h" />
+    <ClInclude Include="..\src\MainComponent.h" />
     <ClInclude Include="..\src\StdAfx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

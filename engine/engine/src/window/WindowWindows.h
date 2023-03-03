@@ -4,10 +4,12 @@
 
 namespace engine
 {
+	class UpdateClient;
+
 	class WindowWindows : public Window
 	{
 	public:
-		WindowWindows(HINSTANCE hInstance, int nCmdShow);
+		WindowWindows(HINSTANCE hInstance, int nCmdShow, UpdateClient& i_updateClient);
 		~WindowWindows();
 		int Run();
 	private:
@@ -18,6 +20,13 @@ namespace engine
 	protected:
 		HINSTANCE m_hInstance;
 		HWND m_hWnd;
+
+	private:
+		void Update(std::stop_token i_stopToken);
+
+		UpdateClient& m_updateClient;
+		std::jthread m_updateThread;
+		std::stop_source m_updateStopSource;
 	};
 }
 #endif

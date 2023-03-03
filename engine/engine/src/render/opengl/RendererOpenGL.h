@@ -1,7 +1,7 @@
 #pragma once
 #if ENGINE_OPENGL
 #include "engine/render/Renderer.h"
-#include "render/RenderResource.h"
+#include "engine/render/RenderResource.h"
 #include "render/shadercompiler/SpirVCompiler.h"
 namespace engine
 {
@@ -15,7 +15,7 @@ namespace engine
 	class RendererOpenGL : public Renderer
 	{
 	public:
-		RendererOpenGL();
+		RendererOpenGL(const Context& i_context);
 		~RendererOpenGL();
 
 		void BeginRender(std::stop_token i_stopToken);
@@ -62,6 +62,7 @@ namespace engine
 		SpirVCompiler m_compiler;
 
 		std::mutex m_deleteMutex;
+		const Context& m_engineContext;
 	};
 
 

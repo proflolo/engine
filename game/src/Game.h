@@ -1,23 +1,27 @@
 #pragma once
 #include "engine/GameModule.h"
 #include "engine/render/RenderClient.h"
+#include "engine/update/UpdateClient.h"
 
 class Gamedb;
 
 
 
-class Game : public engine::GameModule, public engine::RenderClient
+class Game : public engine::GameModule, public engine::RenderClient, public engine::UpdateClient
 {
 public:
-	Game();
+	Game(const engine::Context& i_context);
 
 	~Game();
 
 
-	const engine::definitions& GetDefinitions() const override;
-	std::vector<std::unique_ptr<engine::Module>> InitRequiredModules() const override;
+	const engine::Db& GetDefinitions() const override;
+	std::vector<std::unique_ptr<engine::Module>> CreateDependencies() const override;
 
-	virtual RenderClient& GetRenderClient() override;
+	engine::RenderClient& GetRenderClient() override;
+	engine::UpdateClient& GetUpdateClient() override;
+
+	void Update() override;
 	void Render(std::stop_token i_stopToken, engine::Renderer& i_renderer) override;
 
 private:

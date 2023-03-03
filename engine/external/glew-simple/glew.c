@@ -1,3 +1,4 @@
+#if !WITH_EDITOR
 #include "EngineDefs.h"
 #if ENGINE_OPENGL
 /*
@@ -28588,5 +28589,6 @@ GLboolean eglewIsSupported (const char* name)
 }
 
 #endif /* _WIN32 */
+#endif
 #endif
 #endif

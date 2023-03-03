@@ -9,7 +9,7 @@ namespace engine
 	class WindowWindowsOpenGL: public WindowWindows
 	{
 	public:
-		WindowWindowsOpenGL(HINSTANCE hInstance, int nCmdShow, engine::RenderClient& i_renderClient);
+		WindowWindowsOpenGL(HINSTANCE hInstance, int nCmdShow, engine::RenderClient& i_renderClient, engine::UpdateClient& i_updateClient);
 		~WindowWindowsOpenGL();
 
 	private:

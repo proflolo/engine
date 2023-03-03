@@ -9,6 +9,7 @@ namespace editor
 		definitionbase_def(const definitionbase_def&) = delete;
 		definitionbase_def(definitionbase_def&&) = delete;
 		virtual std::vector<std::reference_wrapper<const editor::definition_def>> list_defs() const = 0;
+		virtual std::vector<std::reference_wrapper<const editor::asset_def>> list_assets() const = 0;
 	protected:
 		definitionbase_def() = default;
 	};
@@ -25,6 +26,18 @@ namespace editor
 				result.emplace_back(std::ref(Def::get_definition()));
 			};
 			Def::visit_types(func);
+			return result;
+		}
+
+		std::vector<std::reference_wrapper<const editor::asset_def>> list_assets() const override
+		{
+			std::vector<std::reference_wrapper<const editor::asset_def>> result;
+			auto func = [&result](auto* i_nullSeed) //Do not use seed
+			{
+				using Def = std::decay_t<decltype(*i_nullSeed)>;
+				result.emplace_back(std::ref(Def::get_definition()));
+			};
+			Def::visit_assets(func);
 			return result;
 		}
 

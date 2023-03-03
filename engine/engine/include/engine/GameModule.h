@@ -3,22 +3,18 @@
 
 namespace engine
 {
-	class RenderClient;
+	
 	class GameModule : public Module
 	{
 	public:
-		int Run();
+		virtual std::vector<std::unique_ptr<Module>> CreateDependencies() const = 0;
 
-		void Init();
-		const std::vector<std::unique_ptr<Module>>& GetSubModules() const;
-		virtual RenderClient& GetRenderClient() = 0;
 	protected:
-		virtual std::vector<std::unique_ptr<Module>> InitRequiredModules() const = 0;
+		GameModule(const Context& i_context);
 
 	private:
-		std::vector<std::unique_ptr<Module>> m_subModules;
 	};
 
-	extern std::unique_ptr<engine::GameModule> CreateGame();
+	extern std::unique_ptr<engine::GameModule> CreateGame(const engine::Context& i_context);
 
 }

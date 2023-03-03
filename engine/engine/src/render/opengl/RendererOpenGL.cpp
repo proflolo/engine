@@ -6,14 +6,18 @@
 #include "MeshOpenGL.h"
 #include "MaterialOpenGL.h"
 #include "OpenGLResult.h"
+#include "asset/AssetProvider.h"
 
 namespace engine
 {
 	
-	RendererOpenGL::RendererOpenGL()
+	RendererOpenGL::RendererOpenGL(const Context& i_context)
+		: m_engineContext(i_context)
 	{
 		glEnable(GL_DEBUG_OUTPUT);
+#if !WITH_EDITOR
 		glDebugMessageCallback(DebugMessageCallback, 0);
+#endif
 	}
 
 	RendererOpenGL::~RendererOpenGL()
@@ -59,6 +63,7 @@ namespace engine
 
 	void RendererOpenGL::Render(MeshGeneric& i_mesh, MaterialGeneric& i_material, const RenderLayout& i_layout)
 	{
+		bool canDraw = true;
 		if (!i_mesh.HasRenderResource() || !m_meshes[i_mesh.renderResource].resource)
 		{
 			//Create it!
@@ -68,9 +73,26 @@ namespace engine
 		if (!i_material.HasRenderResource() || !m_materials[i_material.renderResource].resource)
 		{
 			//Create it!
+			if (i_material.GetMaterialLoadState() == MaterialLoadState::Unloaded)
+			{
+				//Request load
+				canDraw = false;
+				i_material.StartLoad(m_engineContext);
+			}
+			else if (i_material.GetMaterialLoadState() == MaterialLoadState::Ready)
+			{
+				//std::shared_ptr<GPUResourceHolder> handle = std::make_shared<GPUResourceHolder>(*this, std::move(gpuResource));
+				i_material.renderResource = AllocateResource<MaterialGeneric>(m_materials, GPUResourceMaterialOpenGL(m_compiler));
+			}
+			else
+			{
+				canDraw = false;
+			}
+		}
 
-			//std::shared_ptr<GPUResourceHolder> handle = std::make_shared<GPUResourceHolder>(*this, std::move(gpuResource));
-			i_material.renderResource = AllocateResource<MaterialGeneric>(m_materials, GPUResourceMaterialOpenGL(m_compiler));
+		if (!canDraw)
+		{
+			return;
 		}
 
 		ResourceHolder<GPUResourceMeshOpenGL>& meshGPU = m_meshes[i_mesh.renderResource];

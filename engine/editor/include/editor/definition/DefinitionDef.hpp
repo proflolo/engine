@@ -18,7 +18,7 @@ namespace editor
 	};
 
 	template<typename Def, engine::string_literal Name, DefinitionProperty auto... Props>
-	class definition_def_impl : public definition_def, public property_element<Props...>
+	class definition_def_impl : virtual public definition_def, public property_element<Props...>
 	{
 	public:
 		using props = property_element<Props...>;
@@ -42,6 +42,23 @@ namespace editor
 		std::string GetUiName() const override
 		{
 			return props:: template get_property<ui_name>().value;
+		}
+	};
+
+	class asset_def: virtual public definition_def
+	{
+	public:
+		virtual std::string GetExtension() const = 0;
+	};
+
+	template<typename Def, engine::string_literal Name, engine::string_literal Extension, DefinitionProperty auto... Props>
+	class asset_def_impl : public definition_def_impl<Def, Name, Props...>, virtual public asset_def
+	{
+	public:
+		
+		std::string GetExtension() const override
+		{
+			return Extension;
 		}
 	};
 }

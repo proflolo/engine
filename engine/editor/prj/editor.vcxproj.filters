@@ -25,6 +25,18 @@
     <ClCompile Include="..\..\external\juce\modules\juce_opengl\juce_opengl.cpp">
       <Filter>src\juce</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\EngineView.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MainComponent.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\assetwidgets\AssetNavigator.cpp">
+      <Filter>src\assetwidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\assetwidgets\AssetProperties.cpp">
+      <Filter>src\assetwidgets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -41,6 +53,9 @@
     </Filter>
     <Filter Include="include\editor\definition">
       <UniqueIdentifier>{691187fd-3151-4e6b-81b5-79ad1a42bba0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\assetwidgets">
+      <UniqueIdentifier>{ce0b7f89-8129-4f17-bf37-00dc6dd0d4bc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +79,18 @@
     </ClInclude>
     <ClInclude Include="..\include\editor\definition\DefinitionbaseDef.hpp">
       <Filter>include\editor\definition</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EngineView.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MainComponent.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\assetwidgets\AssetNavigator.h">
+      <Filter>src\assetwidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\assetwidgets\AssetProperties.h">
+      <Filter>src\assetwidgets</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

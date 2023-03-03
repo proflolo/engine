@@ -7,3 +7,16 @@
 #include "juce_opengl/juce_opengl.h"
 
 #include "EngineDefs.h"
+#include "engine/EngineStdAfx.h"
+
+#include "render/opengl/RendererOpenGL.h"
+
+#include "definition/DefinitionDef.hpp"
+
+namespace editor
+{
+	struct ProjectContext
+	{
+		std::vector<std::reference_wrapper<const asset_def>> assetTypes;
+	};
+}

@@ -3,7 +3,9 @@
 
 namespace engine
 {
-	MaterialGeneric::MaterialGeneric()
+	MaterialGeneric::MaterialGeneric(std::shared_ptr<Asset<ShaderAssetVertex>> i_vertexShader, std::shared_ptr<Asset<ShaderAssetFragment>> i_fragmentShader)
+		: m_vertexShader(std::move(i_vertexShader))
+		, m_fragmentShader(std::move(i_fragmentShader))
 	{
 
 	}
@@ -11,5 +13,36 @@ namespace engine
 	MaterialGeneric::~MaterialGeneric()
 	{
 
+	}
+	MaterialLoadState MaterialGeneric::GetMaterialLoadState() const
+	{
+		AssetState fragmentState = m_fragmentShader->GetState();
+		AssetState vertexState = m_vertexShader->GetState();
+		if (fragmentState == AssetState::Unloaded || vertexState == AssetState::Unloaded)
+		{
+			return MaterialLoadState::Unloaded;
+		}
+		else if (fragmentState == AssetState::Loading || vertexState == AssetState::Loading)
+		{
+			return MaterialLoadState::Loading;
+		}
+		else
+		{
+			return MaterialLoadState::Ready;
+		}
+	}
+	void MaterialGeneric::StartLoad(const Context& i_context)
+	{
+	
+	}
+
+	const std::optional<std::string&> MaterialGeneric::GetVertexShaderCode() const
+	{
+		
+	}
+
+	const std::optional<std::string&> MaterialGeneric::GetFragmentShaderCode() const
+	{
+		
 	}
 }

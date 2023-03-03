@@ -5,7 +5,7 @@
 
 namespace engine
 {
-	class definitions
+	class Db
 	{
 	public:
 #if WITH_EDITOR
@@ -13,12 +13,12 @@ namespace engine
 #endif
 	};
 
-	template<typename Db>
-	class definitionbase: public definitions
+	template<typename Database>
+	class definitionbase: public Db
 	{
 	public:
 #if WITH_EDITOR
-		static editor::definitionbase_def_impl<Db> s_def;
+		static editor::definitionbase_def_impl<Database> s_def;
 
 		const editor::definitionbase_def& get_definition() const override
 		{
@@ -33,9 +33,12 @@ namespace engine
 		}
 
 
+
+
 	private:
 
 	};
+
 #if WITH_EDITOR
 	template<typename Db>
 	editor::definitionbase_def_impl<Db> definitionbase<Db>::s_def;

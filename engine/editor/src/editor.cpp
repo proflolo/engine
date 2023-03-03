@@ -2,74 +2,38 @@
 //
 #include "StdAfx.h"
 
-#include "engine/GameModule.h"
 #include "engine/definition/Definitionbase.hpp"
-#include "render/opengl/RendererOpenGL.h"
-
-
-class EngineView : public juce::OpenGLAppComponent
-{
-public:
-    EngineView()
-    {
-        setSize(800, 600);
-    }
-    ~EngineView()
-    {
-        shutdownOpenGL();
-    }
-    void initialise() override
-    {
-
-    }
-
-    void shutdown() override
-    {
-        bool stopped = m_stopSource.stop_requested();
-    }
-
-    void render() override
-    {
-        m_renderer.BeginRender(m_stopSource.get_token());
-        glEnable(GL_BLEND);
-        
-        m_renderer.EndRender(m_stopSource.get_token());
-
-    }
-
-    void paint(juce::Graphics& g) override
-    {
-    
-    }
-
-private:
-    engine::RendererOpenGL m_renderer;
-    std::stop_source m_stopSource;
-};
-
-class MainComponent : public juce::Component
-{
-public:
-    MainComponent()
-    {
-        setSize(800, 600);
-        addAndMakeVisible(m_view);
-        m_view.setBounds(50, 100, 200, 200);
-    }
-    ~MainComponent()
-    {
-       
-    }
-   
-
-private:
-    EngineView m_view;
-};
+#include "MainComponent.h"
+#include "engine/GameModule.h"
+#include "engine/db/EngineDb.h"
+#include "EngineFactory.h"
 
 class Editor : public juce::JUCEApplication
 {
 public:
-    Editor() {}
+    Editor() 
+        : m_engineContext(engine::EngineFactory::CreateContext())
+    {
+        m_gameModule = engine::CreateGame(m_engineContext);
+        m_subModules = m_gameModule->CreateDependencies();
+        
+        m_context.assetTypes = m_engineDb.get_definition().list_assets();
+        {
+            const engine::Db& gameDb = m_gameModule->GetDefinitions();
+            std::vector<std::reference_wrapper<const editor::asset_def>> moduleAssets = gameDb.get_definition().list_assets();
+            m_context.assetTypes.insert(m_context.assetTypes.end(), moduleAssets.begin(), moduleAssets.end());
+        }
+
+        for (const auto& subModule : m_subModules)
+        {
+            const engine::Db& submoduleDb = subModule->GetDefinitions();
+            std::vector<std::reference_wrapper<const editor::asset_def>> moduleAssets = submoduleDb.get_definition().list_assets();
+            m_context.assetTypes.insert(m_context.assetTypes.end(), moduleAssets.begin(), moduleAssets.end());
+        }
+
+
+        //ProcessDefinitions(gameModule->GetDefinitions());
+    }
 
     ~Editor() override
     {
@@ -85,7 +49,7 @@ public:
     {
         //juce::registerAllDemos();
 
-        mainWindow.reset(new MainAppWindow(getApplicationName()));
+        mainWindow.reset(new MainAppWindow(getApplicationName(), m_context));
     }
 
     //bool backButtonPressed() override { mainWindow->getMainComponent().getSidePanel().showOrHide(false); return true; }
@@ -101,7 +65,7 @@ private:
     class MainAppWindow : public juce::DocumentWindow
     {
     public:
-        MainAppWindow(const juce::String& name)
+        MainAppWindow(const juce::String& name, const editor::ProjectContext& i_context)
             : DocumentWindow(name, juce::Desktop::getInstance().getDefaultLookAndFeel()
                 .findColour(ResizableWindow::backgroundColourId),
                 DocumentWindow::allButtons)
@@ -124,11 +88,10 @@ private:
                 juce::jmax(600, (int)(0.7f * (float)getParentHeight())));
 #endif
 
-            setContentOwned(new MainComponent(), false);
+            setContentOwned(new editor::MainComponent(i_context), false);
             setVisible(true);
 
-            std::unique_ptr<engine::GameModule> gameModule = engine::CreateGame();
-            ProcessDefinitions(gameModule->GetDefinitions());
+           
             //for (const std::unique_ptr<engine::Module> subModules : gameModule->())
             //{
             //
@@ -139,9 +102,8 @@ private:
 #endif
         }
 
-        void ProcessDefinitions(const engine::definitions& i_defs)
+        void ProcessDefinitions(const engine::Db& i_defs)
         {
-            ;
             for (const editor::definition_def& def : i_defs.get_definition().list_defs())
             {
                 std::string name = def.GetName();
@@ -158,7 +120,7 @@ private:
 #endif
 
         //==============================================================================
-        MainComponent& getMainComponent() { return *dynamic_cast<MainComponent*> (getContentComponent()); }
+        //editor::MainComponent& getMainComponent() { return *dynamic_cast<editor::MainComponent*> (getContentComponent()); }
 
     private:
         std::unique_ptr<Component> taskbarIcon;
@@ -166,8 +128,14 @@ private:
         JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainAppWindow)
     };
 
+    engine::Context m_engineContext;
+    engine::EngineDb m_engineDb;
+    std::unique_ptr<engine::GameModule> m_gameModule;
+    std::vector<std::unique_ptr<engine::Module>> m_subModules;
     std::unique_ptr<MainAppWindow> mainWindow;
     juce::ApplicationCommandManager commandManager;
+    editor::ProjectContext m_context;
+
 };
 
 START_JUCE_APPLICATION(Editor)

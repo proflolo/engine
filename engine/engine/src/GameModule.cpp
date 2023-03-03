@@ -3,15 +3,10 @@
 
 namespace engine
 {
-	int GameModule::Run()
+	GameModule::GameModule(const Context& i_context)
+		: Module(i_context)
 	{
-		std::vector<std::unique_ptr<Module>> m_subModules = InitRequiredModules();
-		return 0;
-	}
 
-	const std::vector<std::unique_ptr<Module>>& GameModule::GetSubModules() const
-	{
-		return m_subModules;
 	}
 }
 

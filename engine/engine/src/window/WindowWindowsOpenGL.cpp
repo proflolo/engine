@@ -17,8 +17,8 @@ LRESULT FakeWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 namespace engine
 {
-	WindowWindowsOpenGL::WindowWindowsOpenGL(HINSTANCE hInstance, int nCmdShow, engine::RenderClient& i_renderClient)
-		: WindowWindows(hInstance, nCmdShow)
+	WindowWindowsOpenGL::WindowWindowsOpenGL(HINSTANCE hInstance, int nCmdShow, engine::RenderClient& i_renderClient, engine::UpdateClient& i_updateClient)
+		: WindowWindows(hInstance, nCmdShow, i_updateClient)
 		, m_renderClient(i_renderClient)
 	{
 		m_hdc = GetDC(m_hWnd);

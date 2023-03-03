@@ -1,12 +1,13 @@
 #include "StdAfx.h"
 #if PLATFORM_WINDOWS && !WITH_EDITOR
 #include "window/WindowWindows.h"
-
+#include "update/UpdateClient.h"
 namespace engine
 {
-	WindowWindows::WindowWindows(HINSTANCE hInstance, int nCmdShow)
+	WindowWindows::WindowWindows(HINSTANCE hInstance, int nCmdShow, UpdateClient& i_updateClient)
 		: m_hInstance(hInstance)
 		, m_windowClassName(L"lolo")
+		, m_updateClient(i_updateClient)
 	{
 		HICON hIcon = NULL;
 		WCHAR szExePath[MAX_PATH];
@@ -72,10 +73,15 @@ namespace engine
 
 		ShowWindow(m_hWnd, nCmdShow);
 		UpdateWindow(m_hWnd);
+
+		m_updateThread = std::jthread(&WindowWindows::Update, this, m_updateStopSource.get_token());
+
 	}
 
 	WindowWindows::~WindowWindows()
 	{
+		m_updateStopSource.request_stop();
+		m_updateThread.join();
 		UnregisterClass(m_windowClassName.c_str(), m_hInstance);
 		DestroyWindow(m_hWnd);
 	}
@@ -136,6 +142,16 @@ namespace engine
 		}
 
 		return DefWindowProc(hWnd, uMsg, wParam, lParam);
+	}
+	
+	void WindowWindows::Update(std::stop_token i_stopToken)
+	{
+		while (!i_stopToken.stop_requested())
+		{
+			m_updateClient.UpdatePrologue();
+			m_updateClient.Update();
+			m_updateClient.UpdateEpilogue();
+		}
 	}
 }
 #endif

@@ -43,5 +43,34 @@ namespace engine
 	template<typename Def, string_literal Name, auto... Props>
 	editor::definition_def_impl<Def, Name, Props...> definition<Def, Name, Props...>::s_def;
 #endif
+
+	template<typename Def, string_literal Name, string_literal Extension, auto... Props>
+	struct assetdefinition 
+	{
+#if WITH_EDITOR
+		static editor::asset_def_impl<Def, Name, Extension, Props...> s_def;
+		static const editor::asset_def& get_definition()
+		{
+			return s_def;
+		}
+#endif
+
+		template<typename Func>
+		static void visit(const Func& i_func)
+		{
+			Def::visit_fields(i_func);
+		}
+
+		template<typename Field, typename Func>
+		static void visit_field(const Field& i_field, const Func& i_func)
+		{
+			i_func(i_field);
+		}
+	};
+
+#if WITH_EDITOR
+	template<typename Def, string_literal Name, string_literal Extension, auto... Props>
+	editor::asset_def_impl<Def, Name, Extension, Props...> assetdefinition<Def, Name, Extension, Props...>::s_def;
+#endif
 }
 
