@@ -11,7 +11,7 @@
 
 namespace engine
 {
-	GPUResourceMaterialOpenGL::GPUResourceMaterialOpenGL(const SpirVCompiler& i_compiler)
+	GPUResourceMaterialOpenGL::GPUResourceMaterialOpenGL(const GPUResourceMaterialOpenGLParams& i_params, const SpirVCompiler& i_compiler)
 	{
 		std::string vertexShaderCode = "#version 450\n\
 			layout(location = 0) in vec3 aPos; // the position variable has attribute position 0\n\

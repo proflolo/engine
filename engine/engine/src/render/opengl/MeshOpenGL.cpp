@@ -7,7 +7,7 @@
 
 namespace engine
 {
-	GPUResourceMeshOpenGL::GPUResourceMeshOpenGL(const MeshGeneric& i_mesh)
+	GPUResourceMeshOpenGL::GPUResourceMeshOpenGL(const GPUResourceMeshOpenGLParams& i_params)
 	{
 		//const GLfloat vertex_buffer_data[] = {
 		//   -1.0f, -1.0f, 0.0f,
@@ -28,7 +28,7 @@ namespace engine
 			glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
 			opengl_check();
 			// Give our vertices to OpenGL.
-			const auto& data = i_mesh.GetData();
+			const auto& data = i_params.data;
 			//auto s = sizeof(vertex_buffer_data);
 			glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(float), data.data(), GL_STATIC_DRAW);
 			opengl_check();
@@ -40,11 +40,13 @@ namespace engine
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBuffer);
 		opengl_check();
 
-		const auto& indices = i_mesh.GetIndices();
+		const auto& indices = i_params.indices;
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 		opengl_check();
 		m_indexSize = indices.size();
 	}
+
+	
 
 	GPUResourceMeshOpenGL::GPUResourceMeshOpenGL(GPUResourceMeshOpenGL&& i_other)
 		: m_vertexArray(std::move(i_other.m_vertexArray))
@@ -92,6 +94,12 @@ namespace engine
 	GLsizei GPUResourceMeshOpenGL::GetIndexSize() const
 	{
 		return m_indexSize;
+	}
+
+	GPUResourceMeshOpenGLParams::GPUResourceMeshOpenGLParams(std::vector<float> i_data, std::vector<unsigned int> i_indices)
+		: data(std::move(i_data))
+		, indices(std::move(i_indices))
+	{
 	}
 }
 #endif

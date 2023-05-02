@@ -7,7 +7,8 @@ namespace engine
 	{
 	public:
 		AssetProvider();
-		std::shared_future<std::vector<char>> ReadAsset(const std::shared_ptr<Asset<void>>& i_asset);
+		~AssetProvider();
+		std::shared_future<std::vector<char>> Load(const std::shared_ptr<Asset<void>>& i_asset);
 
 	private:
 

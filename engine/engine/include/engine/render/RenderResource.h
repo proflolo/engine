@@ -11,6 +11,6 @@ namespace engine
 			return renderResource != std::numeric_limits<size_t>::max();
 		}
 
-		size_t renderResource = std::numeric_limits<size_t>::max();
+		mutable size_t renderResource = std::numeric_limits<size_t>::max();
 	};
 }

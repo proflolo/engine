@@ -27,7 +27,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pCmdLine,
 
 #if ENGINE_OPENGL
 	//1. Create Window
-	engine::WindowWindowsOpenGL window(hInstance, nCmdShow, renderCombiner, updateCombiner);
+	engine::WindowWindowsOpenGL window(hInstance, nCmdShow, renderCombiner, updateCombiner, context);
 	return window.Run();
 #else ENGINE_VULKAN
 	engine::WindowWindowsVulkan window(hInstance, nCmdShow, gameModule->GetRenderClient());

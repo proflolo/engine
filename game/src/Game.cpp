@@ -4,6 +4,8 @@
 #include "engine/render/Material.h"
 #include "engine/render/Mesh.h"
 #include "engine/db/ShaderAsset.h"
+#include "engine/render/RenderContext.h"
+#include "engine/render/RenderResourceProvider.h"
 
 class Character: public engine::definition<Character, "Char", editor::ui_name("C")>
 {
@@ -63,7 +65,7 @@ Game::Game(const engine::Context& i_context)
 	, m_mesh(SampleMesh())
 	, m_material(SampleVertexShader(), SampleFragmentShader())
 {
-
+	
 }
 
 Game::~Game()
@@ -94,12 +96,18 @@ engine::UpdateClient& Game::GetUpdateClient()
 
 void Game::Update()
 {
-
+	
 }
 
-void Game::Render(std::stop_token i_stopToken, engine::Renderer& i_renderer)
+void Game::Render(std::stop_token i_stopToken, const engine::RenderContext& i_renderContext)
 {
-	i_renderer.Render(m_mesh, m_material);
+	if (!m_loading)
+	{
+		i_renderContext.GetRenderResourceProvider().Load(m_material);
+		i_renderContext.GetRenderResourceProvider().Load(m_mesh);
+		m_loading = true;
+	}
+	i_renderContext.GetRenderer().Render(m_mesh, m_material);
 }
 
 namespace engine

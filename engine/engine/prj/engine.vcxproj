@@ -173,6 +173,7 @@
     <ClCompile Include="..\src\render\opengl\RendererOpenGL.cpp" />
     <ClCompile Include="..\src\render\RenderClient.cpp" />
     <ClCompile Include="..\src\render\RenderClientCombiner.cpp" />
+    <ClCompile Include="..\src\render\RenderContext.cpp" />
     <ClCompile Include="..\src\render\Renderer.cpp" />
     <ClCompile Include="..\src\render\Resource.cpp" />
     <ClCompile Include="..\src\render\shadercompiler\SpirVCompiler.cpp" />
@@ -211,9 +212,11 @@
     <ClInclude Include="..\include\engine\render\Material.h" />
     <ClInclude Include="..\include\engine\render\Mesh.h" />
     <ClInclude Include="..\include\engine\render\RenderClient.h" />
+    <ClInclude Include="..\include\engine\render\RenderContext.h" />
     <ClInclude Include="..\include\engine\render\Renderer.h" />
     <ClInclude Include="..\include\engine\render\RenderLayout.h" />
     <ClInclude Include="..\include\engine\render\RenderResource.h" />
+    <ClInclude Include="..\include\engine\render\RenderResourceProvider.h" />
     <ClInclude Include="..\include\engine\render\Resource.h" />
     <ClInclude Include="..\include\engine\update\UpdateClient.h" />
     <ClInclude Include="..\include\engine\window\Window.h" />

@@ -1,0 +1,30 @@
+Ocl:
+
+1. Alta restaurant
+
+c: Sistema::AltaRestaurant(nom:String, adreça: String): Restaurant
+pre: Restaurant.allInstances()->size() < 100 AND Restaurant.allInstances()->forall(r | r.sales.size() < 5)
+post: Restaurant.allInstances()->exists(r | r.oclIsnew() AND r.nom = nom AND r.adreça = adreça AND r = result)
+
+c: Sistema::AltaSala(numero: int, capacitat: int, restaurant: Restaurant)
+pre: -
+post: Sala.allInstances()->exists(s | s.oclIsnew() AND s.stuff = stuff)
+
+
+2.Alta fest Aniversari
+c: Altaaniversari(edat: int, horaInici: int, nomEmpresa:String, darta:Data, nomRestaurant: string, nomHomenatjat: string )
+pre: rest existeix, hemnatjat existeix, empresa existeix
+post: Aniversari.allInstances()->exists(a | a.oclIsnew() AND (quadra) AND a.homenatjat.nom = nomHomenatjat AND a = result)
+      AND Assistent.allInstances()->exists(a | a.oclIsnew() AND a.participant.nom = nomHomenatjat and a.festa.data.... AND a.pagat = true)
+
+c. AfegirOrganitzador(nom: String, festa: Festa)
+pre: persona existeixa
+post: festa.organitzadors.nom.includes(nom) AND Assistent.allInstances()->exists(a | a.participant.nom = nom AND a.oclIsnew() and a.participacio = festa)
+
+
+3.
+c: Consulta(nomEmpresa: nom): Set(tupletype(nom: string, organitzadors: Set(string)))
+pre: Empresa.allInstances()->select(e | e.nom = nomEmpresa ).tipusDefesta->forall(t | Festa.allInstances()->exists(f | f.emrpesa.nom = nom AND festa.tipus = t))
+        Empresa.allInstances()->exists(e | e.nom = nomEmpresa AND e.tipus.size() = e.festa.tipus.asSet().size())
+
+post: result = Aniversari.allInstances()->select(a | a.empresa.nom = nom AND a.participant.size() > 30 AND a.participant->excludes(a.homenatjada))->collect(a | tuple { nom = a.homenatjat.nom, organitzadors = a.organitzador.nom})

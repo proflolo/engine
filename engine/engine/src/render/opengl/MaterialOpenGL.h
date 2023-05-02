@@ -5,11 +5,16 @@
 
 namespace engine
 {
+	struct GPUResourceMaterialOpenGLParams
+	{
+
+	};
+
 	class SpirVCompiler;
 	class GPUResourceMaterialOpenGL : public GPUResourceOpenGL
 	{
 	public:
-		GPUResourceMaterialOpenGL(const SpirVCompiler& i_compiler);
+		GPUResourceMaterialOpenGL(const GPUResourceMaterialOpenGLParams& i_params, const SpirVCompiler& i_compiler);
 		GPUResourceMaterialOpenGL(GPUResourceMaterialOpenGL&& i_other);
 		~GPUResourceMaterialOpenGL();
 

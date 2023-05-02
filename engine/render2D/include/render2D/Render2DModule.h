@@ -18,7 +18,7 @@ namespace render2D
 		engine::UpdateClient& GetUpdateClient() override;
 
 		void Update() override;
-		void Render(std::stop_token i_stopToken, engine::Renderer& i_renderer) override;
+		void Render(std::stop_token i_stopToken, const engine::RenderContext& i_renderer) override;
 
 	private:
 		std::unique_ptr<Db> m_db;

@@ -50,7 +50,7 @@ namespace render2D
 
 	}
 
-	void Render2DModule::Render(std::stop_token i_stopToken, engine::Renderer& i_renderer)
+	void Render2DModule::Render(std::stop_token i_stopToken, const engine::RenderContext& i_renderer)
 	{
 
 	}

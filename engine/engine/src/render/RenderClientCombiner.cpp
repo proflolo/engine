@@ -8,7 +8,7 @@ namespace engine
 	{
 	}
 	
-	void RenderClientCombiner::Render(std::stop_token i_stopToken, Renderer& i_renderer)
+	void RenderClientCombiner::Render(std::stop_token i_stopToken, const RenderContext& i_renderer)
 	{
 		for (auto& renderClient : m_renderClients)
 		{

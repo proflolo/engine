@@ -31,18 +31,14 @@ namespace engine
 			return MaterialLoadState::Ready;
 		}
 	}
-	void MaterialGeneric::StartLoad(const Context& i_context)
+
+	const std::optional<std::string> MaterialGeneric::GetVertexShaderCode() const
 	{
-	
+		return std::nullopt;
 	}
 
-	const std::optional<std::string&> MaterialGeneric::GetVertexShaderCode() const
+	const std::optional<std::string> MaterialGeneric::GetFragmentShaderCode() const
 	{
-		
-	}
-
-	const std::optional<std::string&> MaterialGeneric::GetFragmentShaderCode() const
-	{
-		
+		return std::nullopt;
 	}
 }

@@ -5,10 +5,18 @@
 #include "render/Mesh.h"
 namespace engine
 {
+	struct GPUResourceMeshOpenGLParams
+	{
+		GPUResourceMeshOpenGLParams() = default;
+		GPUResourceMeshOpenGLParams(std::vector<float> i_data, std::vector<unsigned int> i_indices);
+		std::vector<float> data;
+		std::vector<unsigned int> indices;
+	};
+
 	class GPUResourceMeshOpenGL : public GPUResourceOpenGL
 	{
 	public:
-		GPUResourceMeshOpenGL(const MeshGeneric& i_mesh);
+		GPUResourceMeshOpenGL(const GPUResourceMeshOpenGLParams& i_params);
 		GPUResourceMeshOpenGL(GPUResourceMeshOpenGL&& i_other);
 		~GPUResourceMeshOpenGL();
 

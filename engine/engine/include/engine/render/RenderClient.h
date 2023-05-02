@@ -2,12 +2,12 @@
 
 namespace engine
 {
-	class Renderer;
+	class RenderContext;
 
 	class RenderClient
 	{
 	public:
 		virtual ~RenderClient() = default;
-		virtual void Render(std::stop_token i_stopToken, Renderer& i_renderer) = 0;
+		virtual void Render(std::stop_token i_stopToken, const RenderContext& i_renderer) = 0;
 	};
 }

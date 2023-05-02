@@ -3,6 +3,7 @@
 #include "window/WindowWindowsOpenGL.h"
 #include "render/opengl/RendererOpenGL.h"
 #include "render/RenderClient.h"
+#include "render/RenderContext.h"
 
 //#include "platform/opengl/glxext.h"
 //https://registry.khronos.org/OpenGL/index_gl.php
@@ -17,7 +18,7 @@ LRESULT FakeWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 namespace engine
 {
-	WindowWindowsOpenGL::WindowWindowsOpenGL(HINSTANCE hInstance, int nCmdShow, engine::RenderClient& i_renderClient, engine::UpdateClient& i_updateClient)
+	WindowWindowsOpenGL::WindowWindowsOpenGL(HINSTANCE hInstance, int nCmdShow, engine::RenderClient& i_renderClient, engine::UpdateClient& i_updateClient, const Context& i_context)
 		: WindowWindows(hInstance, nCmdShow, i_updateClient)
 		, m_renderClient(i_renderClient)
 	{
@@ -121,7 +122,7 @@ namespace engine
 
 		
 
-		m_renderThread = std::jthread(&WindowWindowsOpenGL::Render, this, m_stopSource.get_token());
+		m_renderThread = std::jthread(&WindowWindowsOpenGL::Render, this, m_stopSource.get_token(), i_context);
 		
 		
 	}
@@ -134,7 +135,7 @@ namespace engine
 		ReleaseDC(m_hWnd, m_hdc);
 	}
 
-	void WindowWindowsOpenGL::Render(std::stop_token i_stopToken)
+	void WindowWindowsOpenGL::Render(std::stop_token i_stopToken, const Context& i_context)
 	{
 		const int pixelAttribs[] = {
 			WGL_DRAW_TO_WINDOW_ARB, GL_TRUE,
@@ -199,12 +200,14 @@ namespace engine
 		}
 
 		{
-			RendererOpenGL renderer;
-			
+			RendererOpenGL renderer(i_context);
+			RenderContext context(renderer, renderer);
+
 			while (!i_stopToken.stop_requested())
 			{
 				renderer.BeginRender(i_stopToken);
-				m_renderClient.Render(i_stopToken, renderer);
+				m_renderClient.Render(i_stopToken, context);
+				renderer.EndRender(i_stopToken);
 				SwapBuffers(m_hdc);
 			}
 		}

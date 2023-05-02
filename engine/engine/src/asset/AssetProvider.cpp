@@ -10,16 +10,24 @@ namespace engine
 
 	void AssetProvider::LoadThread(std::stop_token i_stopToken)
 	{
-		std::unique_lock dataLock(m_threadMutex);
 		while (!i_stopToken.stop_requested())
 		{
-			m_threadCondition.wait(dataLock, [this] { return m_pendingLoads.size() > 0; });
+			std::unique_lock dataLock(m_threadMutex);
+			m_threadCondition.wait(dataLock, [this, i_stopToken] { return m_pendingLoads.size() > 0 || i_stopToken.stop_requested(); });
+			if (i_stopToken.stop_requested())
+			{
+				return;
+			}
 			decltype(m_pendingLoads) processingLoads;
 			processingLoads.swap(m_pendingLoads);
 			dataLock.unlock();
 			//Process all
 			for (auto it = processingLoads.begin(); it != processingLoads.end() && !i_stopToken.stop_requested(); ++it)
 			{
+				if (i_stopToken.stop_requested())
+				{
+					return;
+				}
 				std::shared_ptr<engine::Asset<void>> asset;
 				std::shared_ptr<AssetContents> contents;
 				{
@@ -51,7 +59,14 @@ namespace engine
 		m_loadThread = std::jthread(&AssetProvider::LoadThread, this, m_readStop.get_token());
 	}
 
-	std::shared_future<std::vector<char>> AssetProvider::ReadAsset(const std::shared_ptr<Asset<void>>& i_asset)
+	AssetProvider::~AssetProvider()
+	{
+		m_readStop.request_stop();
+		m_threadCondition.notify_all();
+		m_loadThread.join();
+	}
+
+	std::shared_future<std::vector<char>> AssetProvider::Load(const std::shared_ptr<Asset<void>>& i_asset)
 	{
 		//stop_callback
 		auto it = m_assetContents.find(i_asset);

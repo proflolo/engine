@@ -1,6 +1,7 @@
 #pragma once
 #include "Resource.h"
 #include "RenderResource.h"
+#include "engine/db/ShaderAsset.h"
 
 namespace engine
 {
@@ -20,10 +21,9 @@ namespace engine
 		~MaterialGeneric();
 
 		MaterialLoadState GetMaterialLoadState() const;
-		void StartLoad(const Context& i_context);
 		
-		const std::optional<std::string&> GetVertexShaderCode() const;
-		const std::optional<std::string&> GetFragmentShaderCode() const;
+		const std::optional<std::string> GetVertexShaderCode() const;
+		const std::optional<std::string> GetFragmentShaderCode() const;
 
 	protected:
 		MaterialGeneric(std::shared_ptr<Asset<ShaderAssetVertex>> i_vertexShader, std::shared_ptr<Asset<ShaderAssetFragment>> i_fragmentShader);
