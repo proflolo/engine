@@ -11,8 +11,16 @@
 namespace engine
 {
 	
-	RendererOpenGL::RendererOpenGL(const Context& i_context)
-		: m_engineContext(i_context)
+	RendererOpenGL::RendererOpenGL()
+	{
+		
+	}
+
+	RendererOpenGL::~RendererOpenGL()
+	{
+	}
+
+	void RendererOpenGL::BeginRendering()
 	{
 		glEnable(GL_DEBUG_OUTPUT);
 #if !WITH_EDITOR
@@ -20,12 +28,13 @@ namespace engine
 #endif
 	}
 
-	RendererOpenGL::~RendererOpenGL()
+	void RendererOpenGL::EndRendering()
 	{
-		
+		m_meshes.clear();
+		m_materials.clear();
 	}
 
-	void RendererOpenGL::BeginRender(std::stop_token i_stopToken)
+	void RendererOpenGL::BeginFrame(std::stop_token i_stopToken)
 	{
 		glClearColor(0.129f, 0.586f, 0.949f, 1.0f);	// rgb(33,150,243)
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -158,7 +167,7 @@ namespace engine
 
 	
 
-	void RendererOpenGL::EndRender(std::stop_token i_stopToken)
+	void RendererOpenGL::EndFrame(std::stop_token i_stopToken)
 	{
 		{
 			std::lock_guard guard(m_meshMutex);

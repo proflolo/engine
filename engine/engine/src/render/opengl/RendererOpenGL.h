@@ -19,11 +19,14 @@ namespace engine
 	class RendererOpenGL : public Renderer, public RenderResourceProvider
 	{
 	public:
-		RendererOpenGL(const Context& i_context);
+		RendererOpenGL();
 		~RendererOpenGL();
 
-		void BeginRender(std::stop_token i_stopToken);
-		void EndRender(std::stop_token i_stopToken);
+		void BeginRendering();
+		void EndRendering();
+
+		void BeginFrame(std::stop_token i_stopToken);
+		void EndFrame(std::stop_token i_stopToken);
 
 		std::future<RenderResource<MaterialGeneric>::Id> Load(const MaterialGeneric& i_material) override;
 		std::future<RenderResource<MeshGeneric>::Id> Load(const MeshGeneric& i_mesh) override;
@@ -126,8 +129,7 @@ namespace engine
 		SpirVCompiler m_compiler;
 
 		std::mutex m_deleteMutex;
-		const Context& m_engineContext;
-
+		
 		std::mutex m_materialMutex;
 		std::mutex m_meshMutex;
 	};

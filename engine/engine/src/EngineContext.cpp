@@ -3,8 +3,9 @@
 
 namespace engine
 {
-	Context::Context(std::shared_ptr<AssetProvider> i_assetProvider)
+	Context::Context(std::shared_ptr<AssetProvider> i_assetProvider, RenderResourceProvider& i_renderResourceProvider)
 		: m_assetProvider(std::move(i_assetProvider))
+		, m_renderResourceProvider(i_renderResourceProvider)
 	{
 
 	}
@@ -16,5 +17,10 @@ namespace engine
 	AssetProvider& Context::GetAssetProvider() const
 	{
 		return *m_assetProvider;
+	}
+	
+	RenderResourceProvider& Context::GetRenderResourceProvider() const
+	{
+		return m_renderResourceProvider;
 	}
 }

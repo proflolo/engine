@@ -18,9 +18,10 @@ LRESULT FakeWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 namespace engine
 {
-	WindowWindowsOpenGL::WindowWindowsOpenGL(HINSTANCE hInstance, int nCmdShow, engine::RenderClient& i_renderClient, engine::UpdateClient& i_updateClient, const Context& i_context)
+	WindowWindowsOpenGL::WindowWindowsOpenGL(HINSTANCE hInstance, int nCmdShow, engine::RenderClient& i_renderClient, engine::UpdateClient& i_updateClient, RendererOpenGL& io_renderer)
 		: WindowWindows(hInstance, nCmdShow, i_updateClient)
 		, m_renderClient(i_renderClient)
+		, m_renderer(io_renderer)
 	{
 		m_hdc = GetDC(m_hWnd);
 		if (!m_hdc)
@@ -121,8 +122,7 @@ namespace engine
 		DestroyWindow(fakeWND);
 
 		
-
-		m_renderThread = std::jthread(&WindowWindowsOpenGL::Render, this, m_stopSource.get_token(), i_context);
+		m_renderThread = std::jthread(&WindowWindowsOpenGL::Render, this, m_stopSource.get_token());
 		
 		
 	}
@@ -135,7 +135,7 @@ namespace engine
 		ReleaseDC(m_hWnd, m_hdc);
 	}
 
-	void WindowWindowsOpenGL::Render(std::stop_token i_stopToken, const Context& i_context)
+	void WindowWindowsOpenGL::Render(std::stop_token i_stopToken)
 	{
 		const int pixelAttribs[] = {
 			WGL_DRAW_TO_WINDOW_ARB, GL_TRUE,
@@ -200,16 +200,17 @@ namespace engine
 		}
 
 		{
-			RendererOpenGL renderer(i_context);
-			RenderContext context(renderer, renderer);
-
+			
+			RenderContext context(m_renderer, m_renderer);
+			m_renderer.BeginRendering();
 			while (!i_stopToken.stop_requested())
 			{
-				renderer.BeginRender(i_stopToken);
+				m_renderer.BeginFrame(i_stopToken);
 				m_renderClient.Render(i_stopToken, context);
-				renderer.EndRender(i_stopToken);
+				m_renderer.EndFrame(i_stopToken);
 				SwapBuffers(m_hdc);
 			}
+			m_renderer.EndRendering();
 		}
 	}	
 }
