@@ -6,10 +6,12 @@ namespace editor
     EngineView::EngineView()
     {
         setSize(800, 600);
+        m_renderer.BeginRendering();
     }
 
     EngineView::~EngineView()
     {
+        m_renderer.EndRendering();
         shutdownOpenGL();
     }
 
@@ -25,10 +27,11 @@ namespace editor
 
     void EngineView::render()
     {
-        m_renderer.BeginRender(m_stopSource.get_token());
+        std::stop_token stopToken = m_stopSource.get_token();
+        m_renderer.BeginFrame(stopToken);
+        //m_renderClient.Render(i_stopToken, context);
         glEnable(GL_BLEND);
-
-        m_renderer.EndRender(m_stopSource.get_token());
+        m_renderer.EndFrame(stopToken);
 
     }
 

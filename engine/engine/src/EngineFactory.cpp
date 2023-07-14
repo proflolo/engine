@@ -4,9 +4,9 @@
 
 namespace engine
 {
-	Context EngineFactory::CreateContext(RenderResourceProvider& i_renderResourceProvider)
+	Context EngineFactory::CreateContext()
 	{
 		std::shared_ptr<AssetProvider> assetProvider = std::make_shared<AssetProvider>();
-		return Context(std::move(assetProvider), i_renderResourceProvider);
+		return Context(std::move(assetProvider));
 	}
 }

@@ -4,6 +4,9 @@ namespace editor
 {
 	namespace detail
 	{
+		template <class T, class... Args>
+		constexpr bool is_in_tuple(const std::tuple<Args...>& t);
+
 		template <class T, std::size_t N, class... Args>
 		struct get_number_of_element_from_tuple_by_type_impl
 		{

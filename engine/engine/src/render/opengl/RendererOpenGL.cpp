@@ -140,10 +140,12 @@ namespace engine
 			std::visit([&resource, &i_args...](auto& i_resource)
 				{
 					using T = std::decay_t<decltype(i_resource)>;
-					if constexpr (std::is_same_v<T, typename Holder::Request>)
+					using Req = ResourceHolder<Resource, Params>::Request;
+					using Res = ResourceHolder<Resource, Params>::Resource;
+					if constexpr (std::is_same_v<T, Req>)
 					{
 						i_resource.promise.set_value(i_resource.index);
-						resource.emplace<typename Holder::Resource>(i_resource.source, Resource(i_resource.params, i_args...));
+						resource.emplace<Res>(i_resource.source, Resource(i_resource.params, i_args...));
 					}
 				},
 				itMaterial.resource);

@@ -6,6 +6,6 @@ namespace engine
 	class EngineFactory
 	{
 	public:
-		static Context CreateContext(RenderResourceProvider& i_renderResourceProvider);
+		static Context CreateContext();
 	};
 }

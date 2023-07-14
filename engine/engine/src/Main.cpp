@@ -13,7 +13,7 @@
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pCmdLine, int nCmdShow)
 {
 	engine::RendererOpenGL openGlRenderer;
-	engine::Context context = engine::EngineFactory::CreateContext(openGlRenderer);
+	engine::Context context = engine::EngineFactory::CreateContext();
 	std::unique_ptr<engine::GameModule> gameModule = engine::CreateGame(context);
 
 	std::vector<std::unique_ptr<engine::Module>> depndentModules = gameModule->CreateDependencies();

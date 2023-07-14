@@ -3,6 +3,18 @@
 
 namespace engine
 {
+	//std::future<MaterialGeneric::LoadResult> MaterialGeneric::Load(const MaterialGeneric& i_material, const Context& i_engineContext)
+	//{
+	//	
+	//}
+	//
+	//std::future<MaterialGeneric::LoadResult> MaterialGeneric::LoadData(const MaterialGeneric& i_material, const Context& i_engineContext)
+	//{
+	//	//i_engineContext.GetAssetProvider().L
+	//}
+
+	//LoadVisual es marca, únicament un flag de que es vol carregar, i al RENDER, ya si eso, es comença
+
 	MaterialGeneric::MaterialGeneric(std::shared_ptr<Asset<ShaderAssetVertex>> i_vertexShader, std::shared_ptr<Asset<ShaderAssetFragment>> i_fragmentShader)
 		: m_vertexShader(std::move(i_vertexShader))
 		, m_fragmentShader(std::move(i_fragmentShader))
@@ -13,23 +25,6 @@ namespace engine
 	MaterialGeneric::~MaterialGeneric()
 	{
 
-	}
-	MaterialLoadState MaterialGeneric::GetMaterialLoadState() const
-	{
-		AssetState fragmentState = m_fragmentShader->GetState();
-		AssetState vertexState = m_vertexShader->GetState();
-		if (fragmentState == AssetState::Unloaded || vertexState == AssetState::Unloaded)
-		{
-			return MaterialLoadState::Unloaded;
-		}
-		else if (fragmentState == AssetState::Loading || vertexState == AssetState::Loading)
-		{
-			return MaterialLoadState::Loading;
-		}
-		else
-		{
-			return MaterialLoadState::Ready;
-		}
 	}
 
 	const std::optional<std::string> MaterialGeneric::GetVertexShaderCode() const

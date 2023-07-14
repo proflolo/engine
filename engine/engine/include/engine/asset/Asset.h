@@ -2,13 +2,6 @@
 
 namespace engine
 {
-	enum class AssetState
-	{
-		Unloaded,
-		Loading,
-		Loaded
-	};
-
 	template<typename AssetType>
 	class Asset: public Asset<void>
 	{
@@ -38,29 +31,9 @@ namespace engine
 			}
 		}
 
-		inline AssetState GetState() const
-		{
-			if (m_data.valid())
-			{
-				if (m_data.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
-				{
-					return AssetState::Loaded;
-				}
-				else
-				{
-					return AssetState::Loading;
-				}
-			}
-			else
-			{
-				return AssetState::Unloaded;
-			}
-		}
-		
-
 	private:
 		AssetType m_asset;
-		std::future<std::vector<char>> m_data;
+		std::optional<std::vector<char>> m_data;
 	};
 
 	template<>
@@ -81,4 +54,5 @@ namespace engine
 	private:
 		std::filesystem::path m_path;
 	};
+
 }

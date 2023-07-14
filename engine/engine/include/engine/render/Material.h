@@ -8,22 +8,24 @@ namespace engine
 	class ShaderAssetVertex;
 	class ShaderAssetFragment;
 
-	enum class MaterialLoadState
-	{
-		Ready,
-		Loading,
-		Unloaded
-	};
 
 	class MaterialGeneric: public Resource, public RenderResource<MaterialGeneric>
 	{
 	public:
 		~MaterialGeneric();
-
-		MaterialLoadState GetMaterialLoadState() const;
 		
 		const std::optional<std::string> GetVertexShaderCode() const;
 		const std::optional<std::string> GetFragmentShaderCode() const;
+
+		enum class LoadResult
+		{
+			Success,
+			Failed
+		};
+		//static std::future<LoadResult> Load(const MaterialGeneric& i_material, const Context& i_engineContext);
+		//static std::future<LoadResult> LoadData(const MaterialGeneric& i_material, const Context& i_engineContext);
+		//static std::future<LoadResult> LoadVisual(const MaterialGeneric& i_material, const Context& i_engineContext);
+
 
 	protected:
 		MaterialGeneric(std::shared_ptr<Asset<ShaderAssetVertex>> i_vertexShader, std::shared_ptr<Asset<ShaderAssetFragment>> i_fragmentShader);

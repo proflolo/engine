@@ -8,6 +8,4 @@
 #include <type_traits>
 #include "EngineDefs.h"
 #include <unordered_set>
-#include <assert.h>
 #include <fstream>
-#include <variant>
