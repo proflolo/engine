@@ -1,17 +1,17 @@
 #pragma once
 #if PLATFORM_WINDOWS && !WITH_EDITOR && ENGINE_OPENGL
 #include "WindowWindows.h"
-
+#include "render/opengl/RenderResourceProviderOpenGL.h"
 namespace engine
 {
 	class RenderClient;
 	class Context;
-	class RendererOpenGL;
+	class RenderResourceProviderOpenGL;
 
 	class WindowWindowsOpenGL: public WindowWindows
 	{
 	public:
-		WindowWindowsOpenGL(HINSTANCE hInstance, int nCmdShow, engine::RenderClient& i_renderClient, engine::UpdateClient& i_updateClient, RendererOpenGL& io_renderer);
+		WindowWindowsOpenGL(HINSTANCE hInstance, int nCmdShow, engine::RenderClient& i_renderClient, engine::UpdateClient& i_updateClient);
 		~WindowWindowsOpenGL();
 
 	private:
@@ -23,7 +23,7 @@ namespace engine
 		PFNWGLCHOOSEPIXELFORMATARBPROC wglChoosePixelFormatARB = nullptr;
 		PFNWGLCREATECONTEXTATTRIBSARBPROC wglCreateContextAttribsARB = nullptr;
 		RenderClient& m_renderClient;
-		RendererOpenGL& m_renderer;
+		std::unique_ptr<RenderResourceProviderOpenGL> m_renderResourceProvider;
 	};
 }
 #endif

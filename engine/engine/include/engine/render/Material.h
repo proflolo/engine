@@ -26,6 +26,7 @@ namespace engine
 		//static std::future<LoadResult> LoadData(const MaterialGeneric& i_material, const Context& i_engineContext);
 		//static std::future<LoadResult> LoadVisual(const MaterialGeneric& i_material, const Context& i_engineContext);
 
+		std::span<std::shared_ptr<Asset<void>>> GetAssets() const;
 
 	protected:
 		MaterialGeneric(std::shared_ptr<Asset<ShaderAssetVertex>> i_vertexShader, std::shared_ptr<Asset<ShaderAssetFragment>> i_fragmentShader);

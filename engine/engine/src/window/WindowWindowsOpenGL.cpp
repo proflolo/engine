@@ -4,6 +4,7 @@
 #include "render/opengl/RendererOpenGL.h"
 #include "render/RenderClient.h"
 #include "render/RenderContext.h"
+#include "render/opengl/RenderResourceProviderOpenGL.h"
 
 //#include "platform/opengl/glxext.h"
 //https://registry.khronos.org/OpenGL/index_gl.php
@@ -18,10 +19,10 @@ LRESULT FakeWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 namespace engine
 {
-	WindowWindowsOpenGL::WindowWindowsOpenGL(HINSTANCE hInstance, int nCmdShow, engine::RenderClient& i_renderClient, engine::UpdateClient& i_updateClient, RendererOpenGL& io_renderer)
+	WindowWindowsOpenGL::WindowWindowsOpenGL(HINSTANCE hInstance, int nCmdShow, engine::RenderClient& i_renderClient, engine::UpdateClient& i_updateClient)
 		: WindowWindows(hInstance, nCmdShow, i_updateClient)
 		, m_renderClient(i_renderClient)
-		, m_renderer(io_renderer)
+		, m_renderResourceProvider(std::make_unique<RenderResourceProviderOpenGL>())
 	{
 		m_hdc = GetDC(m_hWnd);
 		if (!m_hdc)
@@ -200,18 +201,20 @@ namespace engine
 		}
 
 		{
-			
-			RenderContext context(m_renderer, m_renderer);
-			m_renderer.BeginRendering();
+			RendererOpenGL renderer(*m_renderResourceProvider);
+			RenderContext context(renderer, *m_renderResourceProvider);
+			renderer.BeginRendering();
 			while (!i_stopToken.stop_requested())
 			{
-				m_renderer.BeginFrame(i_stopToken);
+				renderer.BeginFrame(i_stopToken);
 				m_renderClient.Render(i_stopToken, context);
-				m_renderer.EndFrame(i_stopToken);
+				renderer.EndFrame(i_stopToken);
+				m_renderResourceProvider->ProcessLoads();
 				SwapBuffers(m_hdc);
 			}
-			m_renderer.EndRendering();
+			renderer.EndRendering();
 		}
+		m_renderResourceProvider.reset();
 	}	
 }
 #endif

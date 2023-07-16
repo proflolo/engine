@@ -2,6 +2,7 @@
 #if PLATFORM_WINDOWS && !WITH_EDITOR
 #include "window/WindowWindows.h"
 #include "update/UpdateClient.h"
+#include "update/UpdateContext.h"
 namespace engine
 {
 	WindowWindows::WindowWindows(HINSTANCE hInstance, int nCmdShow, UpdateClient& i_updateClient)
@@ -148,8 +149,9 @@ namespace engine
 	{
 		while (!i_stopToken.stop_requested())
 		{
+			UpdateContext context;
 			m_updateClient.UpdatePrologue();
-			m_updateClient.Update();
+			m_updateClient.Update(context);
 			m_updateClient.UpdateEpilogue();
 		}
 	}

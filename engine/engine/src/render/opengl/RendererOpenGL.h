@@ -15,11 +15,12 @@ namespace engine
 	struct RenderLayout;
 	struct GPUResourceMaterialOpenGLParams;
 	struct GPUResourceMeshOpenGLParams;
+	class RenderResourceProviderOpenGL;
 
-	class RendererOpenGL : public Renderer, public RenderResourceProvider
+	class RendererOpenGL : public Renderer
 	{
 	public:
-		RendererOpenGL();
+		RendererOpenGL(RenderResourceProviderOpenGL& i_provider);
 		~RendererOpenGL();
 
 		void BeginRendering();
@@ -28,8 +29,6 @@ namespace engine
 		void BeginFrame(std::stop_token i_stopToken);
 		void EndFrame(std::stop_token i_stopToken);
 
-		std::future<RenderResource<MaterialGeneric>::Id> Load(const MaterialGeneric& i_material) override;
-		std::future<RenderResource<MeshGeneric>::Id> Load(const MeshGeneric& i_mesh) override;
 		void Render(MeshGeneric& i_mesh, MaterialGeneric& i_material, const RenderLayout& i_layout) override;
 
 		
@@ -38,127 +37,11 @@ namespace engine
 		void Render(GPUResourceMeshOpenGL& i_mesh, GPUResourceMaterialOpenGL& i_material, const RenderLayout& i_layout);
 		void BindLayout(GLuint i_arrayIndex, const RenderLayout& i_layout);
 		static void DebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam);
-		
 
-		template<typename T, typename Params>
-		struct ResourceHolder
-		{
-			struct Request
-			{
-				Params params;
-				std::promise<size_t> promise;
-				const void* source;
-				size_t index;
-			};
-
-			struct Resource
-			{
-				Resource(const void* i_source, T i_value)
-					: source(i_source)
-					, value(std::move(i_value))
-				{
-
-				}
-				const void* source;
-				T value;
-			};
-
-			ResourceHolder(Resource&& i_resource, std::chrono::system_clock::time_point i_lastUsed);
-
-
-
-			ResourceHolder(Request&& i_request, std::chrono::system_clock::time_point i_lastUsed);
-
-			ResourceHolder(const ResourceHolder<T, Params>&) = delete;
-			ResourceHolder(ResourceHolder<T, Params>&& i_other);
-
-			inline bool IsReady() const
-			{
-				return std::visit([](const auto& i_resource)->bool
-					{
-						using T = std::decay_t<decltype(i_resource)>;
-						return std::is_same_v<T, Resource>;
-					}, resource);
-			}
-
-			inline bool IsEmpty() const
-			{
-				return std::visit([](const auto& i_resource)->bool
-					{
-						using T = std::decay_t<decltype(i_resource)>;
-						return std::is_same_v<T, std::nullopt_t>;
-					}, resource);
-			}
-
-			inline T& GetResource()
-			{
-				return std::visit([](auto& i_resource) -> T&
-					{
-						using R = std::decay_t<decltype(i_resource)>;
-						if constexpr (std::is_same_v<R, Resource>)
-						{
-							return i_resource.value;
-						}
-						else
-						{
-							assert(false);
-							static T* s_dummy;
-							return *s_dummy;
-						}
-					}
-				
-				, resource);
-			}
-
-			std::chrono::system_clock::time_point lastUsed;
-			std::variant<std::nullopt_t, Resource, Request> resource;
-		};
-
-		template<typename T, typename Params, typename Resource>
-		inline static std::future<size_t> _Load(const RenderResource<T>& i_material, Params i_params, std::vector<ResourceHolder<Resource, Params>>& io_resources);
-
-		template<typename Params, typename Resource, typename... Args>
-		inline static void _ProcessLoads(std::vector<ResourceHolder<Resource, Params>>& io_resources, Args&... i_args);
-
-		std::vector<ResourceHolder<GPUResourceMeshOpenGL, GPUResourceMeshOpenGLParams>> m_meshes;
-		std::vector<ResourceHolder<GPUResourceMaterialOpenGL, GPUResourceMaterialOpenGLParams>> m_materials;
-
-		template<typename T, typename Params>
-		void ClearUnusedResources(std::vector<ResourceHolder<T, Params>>& io_resources);
-
-		SpirVCompiler m_compiler;
-
-		std::mutex m_deleteMutex;
-		
-		std::mutex m_materialMutex;
-		std::mutex m_meshMutex;
+		RenderResourceProviderOpenGL& m_resourceProvider;
 	};
 
 
-
-	template<typename T, typename Params>
-	inline RendererOpenGL::ResourceHolder<T, Params>::ResourceHolder(Resource&& i_resource, std::chrono::system_clock::time_point i_lastUsed)
-		: resource(std::move(i_resource))
-		, lastUsed(std::move(i_lastUsed))
-	{
-
-	}
-
-	template<typename T, typename Params>
-	inline RendererOpenGL::ResourceHolder<T, Params>::ResourceHolder(Request&& i_request, std::chrono::system_clock::time_point i_lastUsed)
-		: resource(std::move(i_request))
-		, lastUsed(std::move(i_lastUsed))
-	{
-
-	}
-
-	template<typename T, typename Params>
-	inline RendererOpenGL::ResourceHolder<T, Params>::ResourceHolder(ResourceHolder<T, Params>&& i_other)
-		: resource(std::move(i_other.resource))
-		, lastUsed(std::move(i_other.lastUsed))
-	{
-
-	}
 
 }
 #endif

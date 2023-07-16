@@ -13,11 +13,11 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeaderFile>StdAfx.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(EngineDir)\editor\include;$(EngineDir)\engine\src;$(EngineDir)\engine\include;$(EngineDir)\external\glew-simple\;$(EngineDir)\external\EGL\api;$(EngineDir)\engine\include\engine;$(VulkanSDK)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EngineDir)\editor\include;$(EngineDir)\engine\src;$(EngineDir)\engine\include;$(EngineDir)\external\glew-simple\;$(EngineDir)\external\EGL\api;$(EngineDir)\engine\include\engine;$(VULKAN_SDK)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)\bin\$(Configuration)\;$(VulkanSDK)\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)\bin\$(Configuration)\;$(VULKAN_SDK)\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>game.lib;render2d.lib;opengl32.lib;vulkan-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

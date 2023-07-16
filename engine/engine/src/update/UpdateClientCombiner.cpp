@@ -9,11 +9,11 @@ namespace engine
 	{
 	}
 
-	void UpdateClientCombiner::Update()
+	void UpdateClientCombiner::Update(const UpdateContext& i_uc)
 	{
 		for (auto& updateClient : m_updateClients)
 		{
-			updateClient.get().Update();
+			updateClient.get().Update(i_uc);
 		}
 	}
 

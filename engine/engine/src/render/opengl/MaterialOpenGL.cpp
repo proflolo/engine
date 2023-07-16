@@ -162,6 +162,7 @@ namespace engine
 	{
 		if (m_programId != std::numeric_limits<GLuint>::max())
 		{
+			opengl_check();
 			glDeleteProgram(m_programId);
 			opengl_check();
 		}

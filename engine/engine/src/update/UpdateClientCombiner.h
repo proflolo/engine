@@ -8,7 +8,7 @@ namespace engine
 	public:
 		UpdateClientCombiner(std::vector<std::reference_wrapper<UpdateClient>> i_updateClients);
 
-		void Update() override;
+		void Update(const UpdateContext& i_uc) override;
 		void UpdatePrologue() override;
 		void UpdateEpilogue() override;
 		

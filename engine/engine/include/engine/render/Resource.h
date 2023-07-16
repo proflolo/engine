@@ -6,7 +6,7 @@ namespace engine
 	{
 	public:
 		Resource();
-		virtual ~Resource();
+		
 
 		
 

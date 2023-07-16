@@ -135,6 +135,12 @@
     <ClCompile Include="..\src\render\RenderContext.cpp">
       <Filter>src\render</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\render\opengl\RenderResourceProviderOpenGL.cpp">
+      <Filter>src\render\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\update\UpdateContext.cpp">
+      <Filter>src\update</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\StdAfx.h">
@@ -277,6 +283,12 @@
     </ClInclude>
     <ClInclude Include="..\include\engine\render\RenderContext.h">
       <Filter>include\engine\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\render\opengl\RenderResourceProviderOpenGL.h">
+      <Filter>src\render\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\engine\update\UpdateContext.h">
+      <Filter>include\engine\update</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

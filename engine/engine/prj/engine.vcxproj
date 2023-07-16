@@ -171,6 +171,7 @@
     <ClCompile Include="..\src\render\opengl\MeshOpenGL.cpp" />
     <ClCompile Include="..\src\render\opengl\MaterialOpenGL.cpp" />
     <ClCompile Include="..\src\render\opengl\RendererOpenGL.cpp" />
+    <ClCompile Include="..\src\render\opengl\RenderResourceProviderOpenGL.cpp" />
     <ClCompile Include="..\src\render\RenderClient.cpp" />
     <ClCompile Include="..\src\render\RenderClientCombiner.cpp" />
     <ClCompile Include="..\src\render\RenderContext.cpp" />
@@ -185,6 +186,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-Editor|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\src\update\UpdateClientCombiner.cpp" />
+    <ClCompile Include="..\src\update\UpdateContext.cpp" />
     <ClCompile Include="..\src\window\WindowWindows.cpp" />
     <ClCompile Include="..\src\window\WindowWindowsOpenGL.cpp" />
     <ClCompile Include="..\src\window\WindowWindowsVulkan.cpp" />
@@ -219,6 +221,7 @@
     <ClInclude Include="..\include\engine\render\RenderResourceProvider.h" />
     <ClInclude Include="..\include\engine\render\Resource.h" />
     <ClInclude Include="..\include\engine\update\UpdateClient.h" />
+    <ClInclude Include="..\include\engine\update\UpdateContext.h" />
     <ClInclude Include="..\include\engine\window\Window.h" />
     <ClInclude Include="..\src\EngineDefs.h" />
     <ClInclude Include="..\src\EngineFactory.h" />
@@ -228,6 +231,7 @@
     <ClInclude Include="..\src\render\opengl\MaterialOpenGL.h" />
     <ClInclude Include="..\src\render\opengl\OpenGLResult.h" />
     <ClInclude Include="..\src\render\opengl\RendererOpenGL.h" />
+    <ClInclude Include="..\src\render\opengl\RenderResourceProviderOpenGL.h" />
     <ClInclude Include="..\src\render\RenderClientCombiner.h" />
     <ClInclude Include="..\src\render\RenderResource.h" />
     <ClInclude Include="..\src\render\shadercompiler\SpirVCompiler.h" />

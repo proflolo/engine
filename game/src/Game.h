@@ -21,7 +21,7 @@ public:
 	engine::RenderClient& GetRenderClient() override;
 	engine::UpdateClient& GetUpdateClient() override;
 
-	void Update() override;
+	void Update(const engine::UpdateContext& i_uc) override;
 	void Render(std::stop_token i_stopToken, const engine::RenderContext& i_renderer) override;
 
 private:
@@ -40,12 +40,21 @@ private:
 		engine::math::vector<float, 3> vertex;
 	};
 
+	void LoadBackgroundFunc(std::stop_token i_stopToken);
+
 	engine::StaticMesh<VertexData> SampleMesh();
 
 	engine::Material<VertexData> m_material;
 
 	engine::StaticMesh<VertexData> m_mesh;
 
+	std::future<void> m_loadFuture;
+	std::stop_source m_loadStop;
+
 	bool m_loading = false;
+
+	std::vector<std::function<void(const engine::RenderContext& i_context)>> m_renderCalls;
 };
+
+
 

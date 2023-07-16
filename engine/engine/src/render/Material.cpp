@@ -27,6 +27,12 @@ namespace engine
 
 	}
 
+	std::span<std::shared_ptr<Asset<void>>> MaterialGeneric::GetAssets() const
+	{
+		return std::span<std::shared_ptr<Asset<void>>>((std::shared_ptr<Asset<void>>*) & m_vertexShader, 2);
+	}
+
+
 	const std::optional<std::string> MaterialGeneric::GetVertexShaderCode() const
 	{
 		return std::nullopt;

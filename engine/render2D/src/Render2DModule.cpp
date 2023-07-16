@@ -45,7 +45,7 @@ namespace render2D
 		return *this;
 	}
 
-	void Render2DModule::Update()
+	void Render2DModule::Update(const engine::UpdateContext& i_uc)
 	{
 
 	}

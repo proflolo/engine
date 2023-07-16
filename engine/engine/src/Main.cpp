@@ -6,13 +6,12 @@
 #include "render/RenderClientCombiner.h"
 #include "update/UpdateClientCombiner.h"
 #include "EngineFactory.h"
-#include "render/opengl/RendererOpenGL.h"
+#include "render/opengl/RenderResourceProviderOpenGL.h"
 
 #if !WITH_EDITOR
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pCmdLine, int nCmdShow)
 {
-	engine::RendererOpenGL openGlRenderer;
 	engine::Context context = engine::EngineFactory::CreateContext();
 	std::unique_ptr<engine::GameModule> gameModule = engine::CreateGame(context);
 
@@ -30,7 +29,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pCmdLine,
 
 #if ENGINE_OPENGL
 	//1. Create Window
-	engine::WindowWindowsOpenGL window(hInstance, nCmdShow, renderCombiner, updateCombiner, openGlRenderer);
+	engine::WindowWindowsOpenGL window(hInstance, nCmdShow, renderCombiner, updateCombiner);
 	return window.Run();
 #else ENGINE_VULKAN
 	engine::WindowWindowsVulkan window(hInstance, nCmdShow, gameModule->GetRenderClient());

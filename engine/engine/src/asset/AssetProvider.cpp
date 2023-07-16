@@ -5,7 +5,7 @@ namespace engine
 {
 	struct AssetProvider::AssetContents
 	{
-		std::promise<std::vector<char>> promise;
+		std::promise<void> promise;
 	};
 
 	void AssetProvider::LoadThread(std::stop_token i_stopToken)
@@ -44,12 +44,13 @@ namespace engine
 					}
 				}
 				std::ifstream stream(asset->GetPath().c_str(), std::ifstream::in);
-				auto size = stream.tellg();
+				stream.seekg(0, std::ios::end);
+				size_t size = stream.tellg();
 				std::vector<char> data(size);
 				stream.seekg(0);
 				stream.read(&data[0], size);
 				stream.close();
-				contents->promise.set_value(std::move(data));
+				contents->promise.set_value();
 			}
 		}
 	}
@@ -66,14 +67,14 @@ namespace engine
 		m_loadThread.join();
 	}
 
-	std::shared_future<std::vector<char>> AssetProvider::Load(const std::shared_ptr<Asset<void>>& i_asset)
+	std::shared_future<void> AssetProvider::Load(const std::shared_ptr<Asset<void>>& i_asset)
 	{
 		//stop_callback
 		auto it = m_assetContents.find(i_asset);
 		if (it == m_assetContents.end())
 		{
 			std::unique_ptr<AssetContents> contents = std::make_unique<AssetContents>();
-			std::shared_future<std::vector<char>> future = contents->promise.get_future();
+			std::shared_future<void> future = contents->promise.get_future();
 			m_assetContents.emplace(i_asset, std::move(contents));
 			{
 				std::scoped_lock lock(m_threadMutex);

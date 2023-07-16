@@ -6,6 +6,7 @@
 #include "engine/db/ShaderAsset.h"
 #include "engine/render/RenderContext.h"
 #include "engine/render/RenderResourceProvider.h"
+#include "engine/asset/AssetProvider.h"
 
 class Character: public engine::definition<Character, "Char", editor::ui_name("C")>
 {
@@ -34,6 +35,43 @@ public:
 
 	}
 };
+
+void Game::LoadBackgroundFunc(std::stop_token i_stopToken)
+{
+	std::span<std::shared_ptr<engine::Asset<void>>> materialAssets = m_material.GetAssets();
+	std::vector<std::shared_future<void>> futures;
+	futures.reserve(materialAssets.size());
+	for (std::shared_ptr<engine::Asset<void>> asset : materialAssets)
+	{
+		if (i_stopToken.stop_requested()) return;
+		futures.emplace_back(GetEngineContext().GetAssetProvider().Load(asset));
+	}
+
+	for (std::shared_future<void> loadFuture : futures)
+	{
+		if (i_stopToken.stop_requested()) return;
+		loadFuture.wait();
+	}
+
+	if (i_stopToken.stop_requested()) return;
+
+	std::shared_future<engine::RenderResource<engine::MaterialGeneric>::Id> materialFuture;
+	m_renderCalls.emplace_back([this, &materialFuture](const engine::RenderContext& i_context)
+		{
+			materialFuture = i_context.GetRenderResourceProvider().Load(m_material);
+		});
+
+	std::shared_future<engine::RenderResource<engine::MeshGeneric>::Id> meshFuture;
+	m_renderCalls.emplace_back([this, &meshFuture](const engine::RenderContext& i_context)
+		{
+			meshFuture = i_context.GetRenderResourceProvider().Load(m_mesh);
+		});
+
+	if (i_stopToken.stop_requested()) return;
+
+	materialFuture.wait();
+	meshFuture.wait();
+}
 
 engine::StaticMesh<Game::VertexData> Game::SampleMesh()
 {
@@ -65,11 +103,13 @@ Game::Game(const engine::Context& i_context)
 	, m_mesh(SampleMesh())
 	, m_material(SampleVertexShader(), SampleFragmentShader())
 {
-	
+	m_loadFuture = std::async(std::launch::async, [this]() { LoadBackgroundFunc(m_loadStop.get_token()); });
 }
 
 Game::~Game()
 {
+	m_loadStop.request_stop();
+	m_loadFuture.wait();
 }
 
 const engine::Db& Game::GetDefinitions() const
@@ -94,19 +134,20 @@ engine::UpdateClient& Game::GetUpdateClient()
 	return *this;
 }
 
-void Game::Update()
+void Game::Update(const engine::UpdateContext& i_uc)
 {
 	
 }
 
 void Game::Render(std::stop_token i_stopToken, const engine::RenderContext& i_renderContext)
 {
-	if (!m_loading)
+	decltype(m_renderCalls) currentList;
+	currentList.swap(m_renderCalls);
+	for (auto func : currentList)
 	{
-		i_renderContext.GetRenderResourceProvider().Load(m_material);
-		i_renderContext.GetRenderResourceProvider().Load(m_mesh);
-		m_loading = true;
+		func(i_renderContext);
 	}
+
 	i_renderContext.GetRenderer().Render(m_mesh, m_material);
 }
 

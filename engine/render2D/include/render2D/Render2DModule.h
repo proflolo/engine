@@ -17,7 +17,7 @@ namespace render2D
 		engine::RenderClient& GetRenderClient() override;
 		engine::UpdateClient& GetUpdateClient() override;
 
-		void Update() override;
+		void Update(const engine::UpdateContext& i_uc) override;
 		void Render(std::stop_token i_stopToken, const engine::RenderContext& i_renderer) override;
 
 	private:

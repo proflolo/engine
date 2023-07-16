@@ -9,9 +9,6 @@ namespace engine
 
 	}
 
-	Resource::~Resource()
-	{
-
-	}
+	
 
 }
