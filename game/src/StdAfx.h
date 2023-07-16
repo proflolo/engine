@@ -13,6 +13,8 @@
 //render2d module includes
 #include "render2d/Render2DModule.h"
 
+//load module includes
+#include "load/LoadModule.h"
 
 //Fwds
 namespace engine

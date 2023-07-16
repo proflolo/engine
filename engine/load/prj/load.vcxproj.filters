@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\src\StdAfx.cpp" />
+    <ClCompile Include="..\src\LoadModule.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Loader.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\StdAfx.h" />
+    <ClInclude Include="..\include\load\LoadModule.h">
+      <Filter>include\load</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\load\Loader.h">
+      <Filter>include\load</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{516eeb23-decb-4bba-936a-dc7827b3b4f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\load">
+      <UniqueIdentifier>{ed0b2c17-389b-4f31-884e-d670f2ac5e9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{bf53c3eb-32aa-4883-abf3-88cf843769c2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

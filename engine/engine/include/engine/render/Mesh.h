@@ -10,6 +10,8 @@ namespace engine
 	class MeshGeneric: public Resource, public RenderResource<MeshGeneric>
 	{
 	public:
+		static const size_t k_renderType = 2;
+
 		~MeshGeneric();
 		
 		inline const std::basic_string_view<float>& GetData() const

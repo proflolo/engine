@@ -22,7 +22,7 @@ namespace engine
 
 
 	template<typename T, typename Params, typename Resource>
-	std::shared_future<size_t> RenderResourceProviderOpenGL::_Load(const RenderResource<T>& io_resource, Params i_params, std::vector<ResourceHolder<Resource, Params>>& io_resources)
+	std::shared_future<void> RenderResourceProviderOpenGL::_Load(const RenderResource<T>& io_resource, Params i_params, std::vector<ResourceHolder<Resource, Params>>& io_resources)
 	{
 		using Holder = ResourceHolder<Resource, Params>;
 		const void* idx = &io_resource;
@@ -56,19 +56,19 @@ namespace engine
 		if (it != io_resources.end())
 		{
 			size_t index = std::distance(io_resources.begin(), it);
-			return std::visit([index](auto& i_resource) -> std::shared_future<size_t>
+			return std::visit([index](auto& i_resource) -> std::shared_future<void>
 				{
 					using T = std::decay_t<decltype(i_resource)>;
 					if constexpr (std::is_same_v<T, std::nullopt_t>)
 					{
 						assert(false);
-						std::promise<size_t> incorrect;
+						std::promise<void> incorrect;
 						return incorrect.get_future();
 					}
 					else if constexpr (std::is_same_v<T, typename ResourceHolder<Resource, Params>::Resource>)
 					{
-						std::promise<size_t> completed;
-						completed.set_value(index);
+						std::promise<void> completed;
+						completed.set_value();
 						return completed.get_future();
 					}
 					else if constexpr (std::is_same_v<T, ResourceHolder<Resource, Params>::Request>)
@@ -89,7 +89,7 @@ namespace engine
 			request.source = idx;
 			request.params = std::move(i_params);
 			request.future = request.promise.get_future();
-			std::shared_future<size_t> result = request.future;
+			std::shared_future<void> result = request.future;
 
 			//Find an available slot
 			auto itAvailable = std::find_if(io_resources.begin(), io_resources.end(), [](const auto& i_holder) {  return i_holder.IsEmpty(); });
@@ -125,7 +125,7 @@ namespace engine
 					using Res = ResourceHolder<Resource, Params>::Resource;
 					if constexpr (std::is_same_v<T, Req>)
 					{
-						i_resource.promise.set_value(i_resource.index);
+						i_resource.promise.set_value();
 						resource.emplace<Res>(i_resource.source, Resource(i_resource.params, i_args...));
 					}
 				},
@@ -149,13 +149,30 @@ namespace engine
 	}
 
 
-	std::shared_future<RenderResource<MaterialGeneric>::Id> RenderResourceProviderOpenGL::Load(const MaterialGeneric& i_material)
+	std::shared_future<void> RenderResourceProviderOpenGL::Load(const RenderResource<void>& i_resource)
+	{
+		if (i_resource.renderType == MaterialGeneric::k_renderType)
+		{
+			return Load(static_cast<const MaterialGeneric&>(i_resource));
+		}
+		else if (i_resource.renderType == MeshGeneric::k_renderType)
+		{
+			return Load(static_cast<const MeshGeneric&>(i_resource));
+		}
+		else
+		{
+			assert(false);
+			return std::shared_future<void>();
+		}
+	}
+
+	std::shared_future<void> RenderResourceProviderOpenGL::Load(const MaterialGeneric& i_material)
 	{
 		std::lock_guard guard(m_materialMutex);
 		return _Load(i_material, GPUResourceMaterialOpenGLParams(), m_materials);
 	}
 
-	std::shared_future<RenderResource<MeshGeneric>::Id> RenderResourceProviderOpenGL::Load(const MeshGeneric& i_mesh)
+	std::shared_future<void> RenderResourceProviderOpenGL::Load(const MeshGeneric& i_mesh)
 	{
 		std::lock_guard guard(m_meshMutex);
 		std::vector<float> data(i_mesh.GetData().begin(), i_mesh.GetData().end());

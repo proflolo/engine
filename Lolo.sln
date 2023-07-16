@@ -19,6 +19,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "game", "game\prj\game.vcxpr
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "render2d", "engine\render2D\prj\render2d.vcxproj", "{4064F4EC-2988-47C5-A67C-E24DC7CBDA08}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "load", "engine\load\prj\load.vcxproj", "{3D36A002-E572-4E48-8336-D3E93C69DFE4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -57,6 +59,14 @@ Global
 		{4064F4EC-2988-47C5-A67C-E24DC7CBDA08}.Release|x64.Build.0 = Release|x64
 		{4064F4EC-2988-47C5-A67C-E24DC7CBDA08}.Release-Editor|x64.ActiveCfg = Release-Editor|x64
 		{4064F4EC-2988-47C5-A67C-E24DC7CBDA08}.Release-Editor|x64.Build.0 = Release-Editor|x64
+		{3D36A002-E572-4E48-8336-D3E93C69DFE4}.Debug|x64.ActiveCfg = Debug|x64
+		{3D36A002-E572-4E48-8336-D3E93C69DFE4}.Debug|x64.Build.0 = Debug|x64
+		{3D36A002-E572-4E48-8336-D3E93C69DFE4}.Debug-Editor|x64.ActiveCfg = Debug-Editor|x64
+		{3D36A002-E572-4E48-8336-D3E93C69DFE4}.Debug-Editor|x64.Build.0 = Debug-Editor|x64
+		{3D36A002-E572-4E48-8336-D3E93C69DFE4}.Release|x64.ActiveCfg = Release|x64
+		{3D36A002-E572-4E48-8336-D3E93C69DFE4}.Release|x64.Build.0 = Release|x64
+		{3D36A002-E572-4E48-8336-D3E93C69DFE4}.Release-Editor|x64.ActiveCfg = Release-Editor|x64
+		{3D36A002-E572-4E48-8336-D3E93C69DFE4}.Release-Editor|x64.Build.0 = Release-Editor|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -13,7 +13,7 @@
   <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeaderFile>StdAfx.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(EngineDir)\engine\editor\include;$(EngineDir)\engine\render2D\include;$(EngineDir)\engine\engine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(EngineDir)\engine\editor\include;$(EngineDir)\engine\render2D\include;$(EngineDir)\engine\engine\include;$(EngineDir)\engine\load\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>engine.lib;%(AdditionalDependencies)</AdditionalDependencies>

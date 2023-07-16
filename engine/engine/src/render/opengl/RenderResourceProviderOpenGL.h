@@ -22,8 +22,9 @@ namespace engine
 		RenderResourceProviderOpenGL();
 		~RenderResourceProviderOpenGL();
 
-		std::shared_future<RenderResource<MaterialGeneric>::Id> Load(const MaterialGeneric& i_material) override;
-		std::shared_future<RenderResource<MeshGeneric>::Id> Load(const MeshGeneric& i_mesh) override;
+		std::shared_future<void> Load(const RenderResource<void>& i_material) override;
+		std::shared_future<void> Load(const MaterialGeneric& i_material) override;
+		std::shared_future<void> Load(const MeshGeneric& i_mesh) override;
 
 		void ProcessLoads();
 
@@ -39,8 +40,8 @@ namespace engine
 			struct Request
 			{
 				Params params;
-				std::promise<size_t> promise;
-				std::shared_future<size_t> future;
+				std::promise<void> promise;
+				std::shared_future<void> future;
 				const void* source;
 				size_t index;
 			};
@@ -109,7 +110,7 @@ namespace engine
 		};
 
 		template<typename T, typename Params, typename Resource>
-		inline static std::shared_future<size_t> _Load(const RenderResource<T>& i_material, Params i_params, std::vector<ResourceHolder<Resource, Params>>& io_resources);
+		inline static std::shared_future<void> _Load(const RenderResource<T>& i_material, Params i_params, std::vector<ResourceHolder<Resource, Params>>& io_resources);
 
 		template<typename Params, typename Resource, typename... Args>
 		inline static void _ProcessLoads(std::vector<ResourceHolder<Resource, Params>>& io_resources, Args&... i_args);

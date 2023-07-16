@@ -12,6 +12,7 @@ namespace engine
 	class MaterialGeneric: public Resource, public RenderResource<MaterialGeneric>
 	{
 	public:
+		static const size_t k_renderType = 1;
 		~MaterialGeneric();
 		
 		const std::optional<std::string> GetVertexShaderCode() const;

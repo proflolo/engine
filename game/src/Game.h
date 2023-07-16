@@ -40,8 +40,6 @@ private:
 		engine::math::vector<float, 3> vertex;
 	};
 
-	void LoadBackgroundFunc(std::stop_token i_stopToken);
-
 	engine::StaticMesh<VertexData> SampleMesh();
 
 	engine::Material<VertexData> m_material;
@@ -53,7 +51,6 @@ private:
 
 	bool m_loading = false;
 
-	std::vector<std::function<void(const engine::RenderContext& i_context)>> m_renderCalls;
 };
 
 
