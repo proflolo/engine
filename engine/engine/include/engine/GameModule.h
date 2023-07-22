@@ -1,20 +1,31 @@
 #pragma once
 #include "Module.h"
 
+
 namespace engine
 {
-	
+	class ModuleMap;
 	class GameModule : public ModuleImplementation<GameModule>
 	{
 	public:
-		virtual std::vector<std::unique_ptr<Module>> CreateDependencies() const = 0;
 
 	protected:
-		GameModule(const Context& i_context);
+		GameModule(const Context& i_context, const engine::ModuleMap& i_modules);
+
+	protected:
+
+		const engine::ModuleMap& GetModules() const
+		{
+			return m_modules;
+		}
 
 	private:
+		const engine::ModuleMap& m_modules;
 	};
 
-	extern std::unique_ptr<engine::GameModule> CreateGame(const engine::Context& i_context);
+	//Called first
+	extern std::vector<std::unique_ptr<Module>> CreateModules(const engine::Context& i_context);
+	//Called next
+	extern std::unique_ptr<engine::GameModule> CreateGame(const engine::Context& i_context, const engine::ModuleMap& i_modules);
 
 }

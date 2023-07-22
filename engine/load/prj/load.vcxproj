@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="..\include\load\Loader.h" />
     <ClInclude Include="..\include\load\LoadModule.h" />
+    <ClInclude Include="..\include\load\ModuleStdAfx.h" />
     <ClInclude Include="..\src\StdAfx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

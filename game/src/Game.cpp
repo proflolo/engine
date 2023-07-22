@@ -8,6 +8,7 @@
 #include "engine/render/RenderResourceProvider.h"
 #include "engine/asset/AssetProvider.h"
 #include "load/Loader.h"
+#include "engine/ModuleMap.h"
 
 class Character: public engine::definition<Character, "Char", editor::ui_name("C")>
 {
@@ -61,15 +62,16 @@ std::shared_ptr<engine::Asset<engine::ShaderAssetFragment>> SampleFragmentShader
 	return std::make_shared<engine::Asset<engine::ShaderAssetFragment>>("shaders/shader1.fs", engine::ShaderAssetFragment());
 }
 
-Game::Game(const engine::Context& i_context)
-	: engine::GameModule(i_context)
+Game::Game(const engine::Context& i_context, const engine::ModuleMap& i_modules)
+	: engine::GameModule(i_context, i_modules)
 	, m_gameDb(std::make_unique<Gamedb>())
 	, m_mesh(SampleMesh())
 	, m_material(SampleVertexShader(), SampleFragmentShader())
 {
-	load::Loader loader;
-	loader.Enqueue(m_material);
-	loader.Enqueue(m_mesh);
+	load::LoadModule& loadModule = GetModules().GetModule<load::LoadModule>();
+	auto loader = loadModule.CreateLoader();
+	loader->Enqueue(m_material);
+	loader->Enqueue(m_mesh);
 	m_loadFuture = load::Loader::Run(std::move(loader), m_loadStop.get_token(), GetEngineContext());
 }
 
@@ -84,13 +86,6 @@ const engine::Db& Game::GetDefinitions() const
 	return *m_gameDb;
 }
 
-std::vector<std::unique_ptr<engine::Module>> Game::CreateDependencies() const
-{
-	std::vector<std::unique_ptr<engine::Module>> modules;
-	modules.emplace_back(std::make_unique<render2D::Render2DModule>(GetEngineContext()));
-	modules.emplace_back(std::make_unique<load::LoadModule>(GetEngineContext()));
-	return modules;
-}
 
 engine::RenderClient& Game::GetRenderClient()
 {
@@ -114,9 +109,18 @@ void Game::Render(std::stop_token i_stopToken, const engine::RenderContext& i_re
 
 namespace engine
 {
-	std::unique_ptr<engine::GameModule> CreateGame(const engine::Context& i_context)
+	std::unique_ptr<engine::GameModule> CreateGame(const engine::Context& i_context, const engine::ModuleMap& i_modules)
 	{
-		return std::make_unique<Game>(i_context);
+		return std::make_unique<Game>(i_context, i_modules);
 	}
+
+	std::vector<std::unique_ptr<Module>> CreateModules(const engine::Context& i_context)
+	{
+		std::vector<std::unique_ptr<engine::Module>> modules;
+		modules.emplace_back(std::make_unique<render2D::Render2DModule>(i_context));
+		modules.emplace_back(std::make_unique<load::LoadModule>(i_context));
+		return modules;
+	}
+
 }
 

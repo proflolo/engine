@@ -14,16 +14,18 @@
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pCmdLine, int nCmdShow)
 {
 	engine::Context context = engine::EngineFactory::CreateContext();
-	std::unique_ptr<engine::GameModule> gameModule = engine::CreateGame(context);
-	std::vector<std::unique_ptr<engine::Module>> depndentModules = gameModule->CreateDependencies();
+	std::vector<std::unique_ptr<engine::Module>> moduleList = engine::CreateModules(context);
+	engine::ModuleMap modules(std::move(moduleList));
+	std::unique_ptr<engine::GameModule> gameModule = engine::CreateGame(context, modules);
+
+	
 	std::vector<std::reference_wrapper<engine::RenderClient>> renderClients = {gameModule->GetRenderClient()};
 	std::vector<std::reference_wrapper<engine::UpdateClient>> updateClients = { gameModule->GetUpdateClient() };
-	for (const std::unique_ptr<engine::Module>& subModule : depndentModules)
+	for (const std::unique_ptr<engine::Module>& subModule : modules)
 	{
 		renderClients.emplace_back(subModule.get()->GetRenderClient());
 		updateClients.emplace_back(subModule.get()->GetUpdateClient());
 	}
-	engine::ModuleMap modules(std::move(depndentModules));
 
 	engine::RenderClientCombiner renderCombiner(std::move(renderClients));
 	engine::UpdateClientCombiner updateCombiner(std::move(updateClients));

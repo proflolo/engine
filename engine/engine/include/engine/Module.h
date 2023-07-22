@@ -16,11 +16,12 @@ namespace engine
 		virtual RenderClient& GetRenderClient() = 0;
 		virtual UpdateClient& GetUpdateClient() = 0;
 		inline const Context& GetEngineContext() const { return m_context; }
-		virtual const size_t ModuleId() const = 0;
+		virtual const size_t GetModuleId() const = 0;
 	
 	private:
 		inline Module(const Context& i_context) : m_context(i_context) {};
-		const Context m_context;
+		const Context& m_context;
+
 
 		template<typename Base>
 		friend class ModuleImplementation;
@@ -36,7 +37,7 @@ namespace engine
 	private:
 		static uint32_t k_id;
 	public:
-		const size_t ModuleId() const override
+		const size_t GetModuleId() const override
 		{
 			return (size_t)&k_id;
 		}

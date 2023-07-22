@@ -1,5 +1,6 @@
 #pragma once
 #include "engine/EngineStdAfx.h"
+#include "load/ModuleStdAfx.h"
 
 //engine includes
 #include "engine/definition/Field.hpp"

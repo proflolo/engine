@@ -33,13 +33,23 @@ namespace load
 
 
 	}
-	void Loader::LoadThread(Loader i_loader, std::stop_token i_stopToken, const engine::Context& i_engineContext)
+	void Loader::Render(std::stop_token i_stopToken, const engine::RenderContext& i_renderer)
+	{
+		decltype(m_renderCalls) currentList;
+		currentList.swap(m_renderCalls);
+		for (auto func : currentList)
+		{
+			func(i_renderer);
+		}
+	}
+
+	void Loader::LoadThread(std::unique_ptr<Loader, LoadModule::LoadDeleter> i_loader, std::stop_token i_stopToken, const engine::Context& i_engineContext)
 	{
 		std::unordered_map<size_t, std::vector<std::shared_future<void>>> assetFutures;
 		//Enqueue all assets
 		{
 			size_t index = 0;
-			for (LoadTask& task : i_loader.m_tasks)
+			for (LoadTask& task : i_loader->m_tasks)
 			{
 				std::vector<std::shared_future<void>>& futures = assetFutures[index];
 				for (const std::shared_ptr<engine::Asset<void>>& asset : task.assets)
@@ -59,7 +69,7 @@ namespace load
 			{
 				allTasksFinished = true;
 				size_t index = 0;
-				for (LoadTask& task : i_loader.m_tasks)
+				for (LoadTask& task : i_loader->m_tasks)
 				{
 					std::vector<std::shared_future<void>>& diskFutures = assetFutures[index];
 					bool allDiskFinished = true;
@@ -82,10 +92,11 @@ namespace load
 							{
 								if (i_stopToken.stop_requested()) return;
 								std::shared_future<void> renderLoadFuture;
-								i_loader.m_renderCalls.emplace_back([&renderLoadFuture, renderResource](const engine::RenderContext& i_context)
+								i_loader->m_renderCalls.emplace_back([&renderLoadFuture, renderResource](const engine::RenderContext& i_context)
 									{
 										renderLoadFuture = i_context.GetRenderResourceProvider().Load(renderResource);
 									});
+#error
 								futures[renderIdx] = renderLoadFuture;
 								renderIdx++;
 							}
@@ -109,8 +120,8 @@ namespace load
 		}
 	}
 
-	std::future<void> Loader::Run(Loader&& i_loader, std::stop_token i_stopToken, const engine::Context& i_engineContext)
+	std::future<void> Loader::Run(std::unique_ptr<Loader, LoadModule::LoadDeleter> i_loader, std::stop_token i_stopToken, const engine::Context& i_engineContext)
 	{
-		return std::async(std::launch::async, [=]() { LoadThread(i_loader, i_stopToken, i_engineContext); });
+		return std::async(std::launch::async, [i_stopToken, i_engineContext, loader = std::move(i_loader)]() mutable { LoadThread(std::move(loader), i_stopToken, i_engineContext); });
 	}
 }

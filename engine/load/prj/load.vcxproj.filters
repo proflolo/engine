@@ -17,6 +17,9 @@
     <ClInclude Include="..\include\load\Loader.h">
       <Filter>include\load</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\load\ModuleStdAfx.h">
+      <Filter>include\load</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">

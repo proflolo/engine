@@ -10,13 +10,12 @@ class Gamedb;
 class Game : public engine::GameModule, public engine::RenderClient, public engine::UpdateClient
 {
 public:
-	Game(const engine::Context& i_context);
+	Game(const engine::Context& i_context, const engine::ModuleMap& i_modules);
 
 	~Game();
 
 
 	const engine::Db& GetDefinitions() const override;
-	std::vector<std::unique_ptr<engine::Module>> CreateDependencies() const override;
 
 	engine::RenderClient& GetRenderClient() override;
 	engine::UpdateClient& GetUpdateClient() override;
@@ -25,6 +24,8 @@ public:
 	void Render(std::stop_token i_stopToken, const engine::RenderContext& i_renderer) override;
 
 private:
+
+
 	std::unique_ptr<Gamedb> m_gameDb;
 
 	
@@ -52,6 +53,3 @@ private:
 	bool m_loading = false;
 
 };
-
-
-

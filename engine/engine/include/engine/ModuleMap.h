@@ -13,17 +13,30 @@ namespace engine
 		requires std::is_base_of_v<Module, TModule>
 		bool HasModule() const
 		{
-			return m_modules.find(TModule::Id()) != m_modules.end();
+			auto it = std::find_if(m_modules.begin(), m_modules.end(), [](const auto& i_element) { return i_element->GetModuleId() == TModule::Id(); });
+			return it != m_modules.end();
 		}
 
 		template<typename TModule>
 		requires std::is_base_of_v<Module, TModule>
 		TModule& GetModule() const
 		{
-			return static_cast<TModule&>(*m_modules.at(TModule::Id()));
+			auto it = std::find_if(m_modules.begin(), m_modules.end(), [](const auto& i_element) { return i_element->GetModuleId() == TModule::Id(); });
+			assert(it != m_modules.end());
+			return static_cast<TModule&>(**it);
+		}
+
+		inline auto begin() const
+		{
+			return m_modules.begin();
+		}
+
+		inline auto end() const
+		{
+			return m_modules.end();
 		}
 
 	private:
-		std::unordered_map<size_t, std::unique_ptr<Module>> m_modules;
+		std::vector<std::unique_ptr<Module>> m_modules;
 	};
 }
