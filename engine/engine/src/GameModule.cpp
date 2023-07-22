@@ -4,7 +4,7 @@
 namespace engine
 {
 	GameModule::GameModule(const Context& i_context)
-		: Module(i_context)
+		: ModuleImplementation<GameModule>(i_context)
 	{
 
 	}

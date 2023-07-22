@@ -7,7 +7,7 @@
 namespace load
 {
 	class Db;
-	class LoadModule : public engine::Module, public engine::RenderClient, public engine::UpdateClient
+	class LoadModule : public engine::ModuleImplementation<LoadModule>, public engine::RenderClient, public engine::UpdateClient
 	{
 	public:
 		LoadModule(const engine::Context& i_context);

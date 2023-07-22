@@ -7,7 +7,7 @@ namespace load
 	
 
 	LoadModule::LoadModule(const engine::Context& i_context)
-		: engine::Module(i_context)
+		: engine::ModuleImplementation<LoadModule>(i_context)
 	{
 	}
 

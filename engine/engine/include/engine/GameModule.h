@@ -4,7 +4,7 @@
 namespace engine
 {
 	
-	class GameModule : public Module
+	class GameModule : public ModuleImplementation<GameModule>
 	{
 	public:
 		virtual std::vector<std::unique_ptr<Module>> CreateDependencies() const = 0;

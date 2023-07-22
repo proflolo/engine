@@ -166,6 +166,7 @@
     <ClCompile Include="..\src\GameModule.cpp" />
     <ClCompile Include="..\src\Main.cpp" />
     <ClCompile Include="..\src\Module.cpp" />
+    <ClCompile Include="..\src\ModuleMap.cpp" />
     <ClCompile Include="..\src\render\Material.cpp" />
     <ClCompile Include="..\src\render\Mesh.cpp" />
     <ClCompile Include="..\src\render\opengl\MeshOpenGL.cpp" />
@@ -211,6 +212,7 @@
     <ClInclude Include="..\include\engine\EngineStdAfx.h" />
     <ClInclude Include="..\include\engine\GameModule.h" />
     <ClInclude Include="..\include\engine\Module.h" />
+    <ClInclude Include="..\include\engine\ModuleMap.h" />
     <ClInclude Include="..\include\engine\render\Material.h" />
     <ClInclude Include="..\include\engine\render\Mesh.h" />
     <ClInclude Include="..\include\engine\render\RenderClient.h" />

@@ -141,6 +141,9 @@
     <ClCompile Include="..\src\update\UpdateContext.cpp">
       <Filter>src\update</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\ModuleMap.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\StdAfx.h">
@@ -289,6 +292,9 @@
     </ClInclude>
     <ClInclude Include="..\include\engine\update\UpdateContext.h">
       <Filter>include\engine\update</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\engine\ModuleMap.h">
+      <Filter>include\engine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

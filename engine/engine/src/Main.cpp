@@ -7,6 +7,7 @@
 #include "update/UpdateClientCombiner.h"
 #include "EngineFactory.h"
 #include "render/opengl/RenderResourceProviderOpenGL.h"
+#include "ModuleMap.h"
 
 #if !WITH_EDITOR
 
@@ -14,7 +15,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pCmdLine,
 {
 	engine::Context context = engine::EngineFactory::CreateContext();
 	std::unique_ptr<engine::GameModule> gameModule = engine::CreateGame(context);
-
 	std::vector<std::unique_ptr<engine::Module>> depndentModules = gameModule->CreateDependencies();
 	std::vector<std::reference_wrapper<engine::RenderClient>> renderClients = {gameModule->GetRenderClient()};
 	std::vector<std::reference_wrapper<engine::UpdateClient>> updateClients = { gameModule->GetUpdateClient() };
@@ -23,6 +23,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR pCmdLine,
 		renderClients.emplace_back(subModule.get()->GetRenderClient());
 		updateClients.emplace_back(subModule.get()->GetUpdateClient());
 	}
+	engine::ModuleMap modules(std::move(depndentModules));
 
 	engine::RenderClientCombiner renderCombiner(std::move(renderClients));
 	engine::UpdateClientCombiner updateCombiner(std::move(updateClients));

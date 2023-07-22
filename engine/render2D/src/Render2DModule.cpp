@@ -21,7 +21,7 @@ namespace render2D
 	};
 
 	Render2DModule::Render2DModule(const engine::Context& i_context)
-		: engine::Module(i_context)
+		: engine::ModuleImplementation<Render2DModule>(i_context)
 		, m_db(std::make_unique<Db>())
 	{
 	}

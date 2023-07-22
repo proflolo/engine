@@ -6,7 +6,7 @@
 namespace render2D
 {
 	class Db;
-	class Render2DModule : public engine::Module, public engine::RenderClient, public engine::UpdateClient
+	class Render2DModule : public engine::ModuleImplementation<Render2DModule>, public engine::RenderClient, public engine::UpdateClient
 	{
 	public:
 		Render2DModule(const engine::Context& i_context);
