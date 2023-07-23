@@ -30,11 +30,16 @@ namespace engine
 				FragColor = vertexColor;\n\
 			}";
 
+		
+
 		//i_compiler.GLSLtoSPV(SpirVCompiler::ShaderStage::Fragment, fragmentShaderCode);
 		//i_compiler.SPVtoGLSL(i_compiler.GLSLtoSPV(SpirVCompiler::ShaderStage::Vertex, vertexShaderCode));
 		//
-		std::vector<unsigned int> vertexShaderCompiled = i_compiler.GLSLtoSPV(SpirVCompiler::ShaderStage::Vertex, vertexShaderCode);
-		std::vector<unsigned int> fragmentShaderCompiled = i_compiler.GLSLtoSPV(SpirVCompiler::ShaderStage::Fragment, fragmentShaderCode);
+		std::string vc(i_params.vetexShaderCode.begin(), i_params.vetexShaderCode.end());
+		std::string fc(i_params.fragmentShaderCode.begin(), i_params.fragmentShaderCode.end());
+
+		std::vector<unsigned int> vertexShaderCompiled = i_compiler.GLSLtoSPV(SpirVCompiler::ShaderStage::Vertex, vc);
+		std::vector<unsigned int> fragmentShaderCompiled = i_compiler.GLSLtoSPV(SpirVCompiler::ShaderStage::Fragment, fc);
 
 
 

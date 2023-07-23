@@ -33,13 +33,31 @@ namespace engine
 	}
 
 
-	const std::optional<std::string> MaterialGeneric::GetVertexShaderCode() const
+	const std::optional<std::span<const char>> MaterialGeneric::GetVertexShaderCode() const
 	{
+		if (m_vertexShader)
+		{
+			const std::optional<std::vector<char>>& data = m_vertexShader->GetData();
+			if (data)
+			{
+				std::span<const char> view (data->begin(), data->size());
+				return view;
+			}
+		}
 		return std::nullopt;
 	}
 
-	const std::optional<std::string> MaterialGeneric::GetFragmentShaderCode() const
+	const std::optional<std::span<const char>> MaterialGeneric::GetFragmentShaderCode() const
 	{
+		if (m_fragmentShader)
+		{
+			const std::optional<std::vector<char>>& data = m_fragmentShader->GetData();
+			if (data)
+			{
+				std::span<const char> view(data->begin(), data->size());
+				return view;
+			}
+		}
 		return std::nullopt;
 	}
 }

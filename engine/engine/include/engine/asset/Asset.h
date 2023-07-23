@@ -19,9 +19,9 @@ namespace engine
 			return m_asset;
 		}
 
-		inline std::optional<std::vector<char>> GetData() const
+		inline const std::optional<std::vector<char>>& GetData() const
 		{
-			if (m_data.wait_for(std::chrono::seconds(0)) == std::future_status::ready)
+			if (m_data)
 			{
 				return *m_data;
 			}

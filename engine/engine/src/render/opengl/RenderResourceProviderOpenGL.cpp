@@ -169,7 +169,10 @@ namespace engine
 	std::shared_future<void> RenderResourceProviderOpenGL::Load(const MaterialGeneric& i_material)
 	{
 		std::lock_guard guard(m_materialMutex);
-		return _Load(i_material, GPUResourceMaterialOpenGLParams(), m_materials);
+		const std::optional<std::span<const char>> vcode = i_material.GetVertexShaderCode();
+		const std::optional<std::span<const char>> fcode = i_material.GetVertexShaderCode();
+
+		return _Load(i_material, GPUResourceMaterialOpenGLParams(*vcode, *fcode), m_materials);
 	}
 
 	std::shared_future<void> RenderResourceProviderOpenGL::Load(const MeshGeneric& i_mesh)

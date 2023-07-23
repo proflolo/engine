@@ -15,8 +15,8 @@ namespace engine
 		static const size_t k_renderType = 1;
 		~MaterialGeneric();
 		
-		const std::optional<std::string> GetVertexShaderCode() const;
-		const std::optional<std::string> GetFragmentShaderCode() const;
+		const std::optional<std::span<const char>> GetVertexShaderCode() const;
+		const std::optional<std::span<const char>> GetFragmentShaderCode() const;
 
 		enum class LoadResult
 		{
