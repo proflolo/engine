@@ -6,21 +6,24 @@
 
 namespace load
 {
-	void Loader::Enqueue(std::span <std::shared_ptr<engine::Asset<void>>> i_assets, std::span<engine::RenderResource<void>> i_renderResource)
+	void Loader::Enqueue(std::vector <std::shared_ptr<engine::Asset<void>>> i_assets, std::vector<engine::RenderResource<void>*> i_renderResource)
 	{
 		m_tasks.emplace_back(LoadTask{ i_assets, i_renderResource });
 	}
 
 	void Loader::Enqueue(engine::MaterialGeneric& i_material)
 	{
-		std::span<engine::RenderResource<void>> renders(static_cast<engine::RenderResource<void>*>(& i_material), 1);
-		Enqueue(i_material.GetAssets(), renders);
+		std::vector<engine::RenderResource<void>*> renders { &i_material };
+		auto assetList = i_material.GetAssets();
+		std::vector <std::shared_ptr<engine::Asset<void>>> assets(assetList.begin(), assetList.end());
+
+		Enqueue(std::move(assets), std::move(renders));
 	}
 
 	void Loader::Enqueue(engine::MeshGeneric& i_mesh)
 	{
-		std::span<engine::RenderResource<void>> renders(static_cast<engine::RenderResource<void>*>(&i_mesh), 1);
-		Enqueue({}, renders);
+		std::vector<engine::RenderResource<void>*> renders { &i_mesh};
+		Enqueue({}, std::move(renders));
 	}
 
 	namespace
@@ -45,6 +48,7 @@ namespace load
 
 	void Loader::LoadThread(std::unique_ptr<Loader, LoadModule::LoadDeleter> i_loader, std::stop_token i_stopToken, const engine::Context& i_engineContext)
 	{
+
 		std::unordered_map<size_t, std::vector<std::shared_future<void>>> assetFutures;
 		//Enqueue all assets
 		{
@@ -88,23 +92,21 @@ namespace load
 							futures.resize(task.renderResource.size());
 							if (i_stopToken.stop_requested()) return;
 							size_t renderIdx = 0;
-							for (engine::RenderResource<void>& renderResource : task.renderResource)
+							for (engine::RenderResource<void>* renderResource : task.renderResource)
 							{
 								if (i_stopToken.stop_requested()) return;
-								std::shared_future<void> renderLoadFuture;
+								std::shared_future<void>& renderLoadFuture = futures[renderIdx];
 								i_loader->m_renderCalls.emplace_back([&renderLoadFuture, renderResource](const engine::RenderContext& i_context)
 									{
-										renderLoadFuture = i_context.GetRenderResourceProvider().Load(renderResource);
+										renderLoadFuture = i_context.GetRenderResourceProvider().Load(*renderResource);
 									});
-#error
-								futures[renderIdx] = renderLoadFuture;
 								renderIdx++;
 							}
 						}
 
 						for (std::shared_future<void>& renderFuture : futures)
 						{
-							if (!has_finished(renderFuture))
+							if (!renderFuture.valid() || !has_finished(renderFuture))
 							{
 								allTasksFinished = false;
 							}

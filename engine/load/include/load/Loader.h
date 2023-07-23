@@ -12,7 +12,7 @@ namespace load
 	{
 	public:
 		
-		void Enqueue(std::span <std::shared_ptr<engine::Asset<void>>> i_assets, std::span<engine::RenderResource<void>> i_renderResource);
+		void Enqueue(std::vector <std::shared_ptr<engine::Asset<void>>> i_assets, std::vector<engine::RenderResource<void>*> i_renderResource);
 		
 		//Helper functions with some engine classes
 		void Enqueue(engine::MaterialGeneric& i_material);
@@ -28,8 +28,8 @@ namespace load
 
 		struct LoadTask
 		{
-			std::span <std::shared_ptr<engine::Asset<void>>> assets;
-			std::span<engine::RenderResource<void>> renderResource;
+			std::vector <std::shared_ptr<engine::Asset<void>>> assets;
+			std::vector<engine::RenderResource<void>*> renderResource;
 		};
 
 		std::vector<LoadTask> m_tasks;
